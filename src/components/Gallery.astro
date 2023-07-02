@@ -1,0 +1,67 @@
+---
+// import { Image } from 'astro:assets';
+import '~/assets/styles/lightgallery.scss';
+
+interface GalleryImage {
+  text: string;
+  src: string;
+}
+
+export interface Props {
+  images: Array<GalleryImage>;
+}
+
+const { images } = Astro.props;
+---
+
+<script>
+  import lightGallery from 'lightgallery';
+  // import plugins if you need
+  import lgThumbnail from 'lightgallery/plugins/thumbnail';
+  import lgZoom from 'lightgallery/plugins/zoom';
+
+  const lightGalleryElement = document.getElementById('lightgallery');
+  if (lightGalleryElement) {
+    lightGallery(lightGalleryElement, {
+      plugins: [lgZoom, lgThumbnail],
+      speed: 500,
+      selector: '.item',
+    });
+  }
+</script>
+
+<script>
+  import Masonry from 'masonry-layout';
+  import imagesLoaded from 'imagesloaded';
+  // document.addEventListener('DOMContentLoaded', () => {
+  const msnry = new Masonry('#lightgallery', {
+    itemSelector: '.item',
+    columnWidth: '.item',
+    percentPosition: true,
+  });
+
+  imagesLoaded('#lightgallery').on('progress', function (instance, image) {
+    if (image.isLoaded) {
+      image.img.parentNode.classList.add('border');
+    }
+    msnry.layout();
+  });
+  window.addEventListener('resize', msnry.layout());
+  // });
+</script>
+
+<div id="lightgallery" class:list={['py-12', Astro.props['class:list']]}>
+  {
+    images.map(({ text, src }) => (
+      <div class="item break-inside w-1/2 p-1 md:p-2 lg:w-1/4" data-src={src}>
+        <div class="overflow-hidden rounded border-border">
+          <img
+            class="h-auto max-w-full object-cover transition duration-300 ease-in-out hover:scale-110 hover:cursor-zoom-in"
+            src={src}
+            alt={text}
+          />
+        </div>
+      </div>
+    ))
+  }
+</div>

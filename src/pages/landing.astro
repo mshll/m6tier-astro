@@ -1,0 +1,77 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Socials from '~/components/Socials.astro';
+
+import { Textarea } from '~/components/ui/textarea';
+import { Button } from '~/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card';
+import { Input } from '~/components/ui/input';
+import { Label } from '~/components/ui/label';
+import { buttonVariants } from '~/components/ui/button';
+import { Link } from 'astro-link';
+import { headerData, socialData } from '~/data';
+import { Icon } from 'astro-icon/components';
+import Header from '~/components/widgets/Header.astro';
+
+const meta = {
+  title: 'Contact',
+  description: '',
+  dontUseTitleTemplate: true,
+};
+
+const links = socialData.links;
+---
+
+<Layout {meta}>
+  <Fragment slot="header">
+    <Header {...headerData} isSticky showRssFeed showToggleTheme />
+  </Fragment>
+  <section class="mx-auto pb-5">
+    <div class="mx-auto h-32 w-32 translate-y-0 transform transition-all duration-500 ease-in-out hover:-translate-y-2">
+      <img
+        class="h-full w-full rounded-full border-2 border-border object-cover object-center"
+        src="https://instagram.fhio2-2.fna.fbcdn.net/v/t51.2885-19/355831206_293997416358237_9024551201129896347_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.fhio2-2.fna.fbcdn.net&_nc_cat=109&_nc_ohc=y4uL_qtl9y8AX8lHv0p&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfDCGMROuWJ2vSr0HgNX72pOnYBThcG-GCVf63O4WPCKxg&oe=64A394A8&_nc_sid=8b3546"
+        alt=""
+      />
+    </div>
+    <h1 class="my-4 font-serif text-4xl font-extrabold leading-none">M6tier</h1>
+    <div class="mx-auto flex max-w-2xl flex-col items-center justify-center p-5">
+      <!-- <h1 class="mb-5 text-4xl font-bold">Contact</h1> -->
+      <Card className="w-[350px] md:w-[550px] md:space-y-2 border-border text-start">
+        <CardContent>
+          <div class="mt-5 grid w-full items-center gap-4 md:space-y-2">
+            {
+              links.map(({ ariaLabel, icon, href }) => (
+                <Link
+                  href={href}
+                  title={ariaLabel}
+                  data-tooltip-target="tooltip-"
+                  class={
+                    buttonVariants({ variant: 'default', size: 'lg' }) +
+                    'flex items-start justify-start px-4  text-start'
+                  }
+                >
+                  {icon && <Icon name={icon + '-line'} class="mr-2 h-6 w-6" />}
+                  {ariaLabel}
+                </Link>
+              ))
+            }
+            <Link
+              href="/"
+              title="Home"
+              class={buttonVariants({ variant: 'outline', size: 'lg' }) +
+                'flex items-start justify-start px-4  text-start'}
+            >
+              <!-- <Icon name='' class="mr-2 h-6 w-6" /> -->
+              m6tier.com
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  </section>
+
+  <div class="relative" slot="bottom-grid">
+    <div class="noise-underlay bg-grid absolute -left-[50vw] bottom-0 -z-50 h-[20rem] w-[150vw]"></div>
+  </div>
+</Layout>

@@ -1,0 +1,33 @@
+$lg-theme-color: hsl(var(--background));
+$lg-theme-highlight: hsl(var(--accent));
+$lg-thumb-bg: hsl(var(--card));
+$lg-next-prev-bg: rgba(0, 0, 0, 0.03);
+$lg-next-prev-color: hsl(var(--primary));
+$lg-next-next-color: hsl(var(--primary));
+$lg-toolbar-icon-color: hsl(var(--primary));
+$lg-icon-color: hsl(var(--primary));
+$lg-next-prev-hover-color: hsl(var(--primary));
+$lg-toolbar-icon-hover-color: hsl(var(--primary));
+$lg-progress-bar-bg: hsl(var(--primary));
+$lg-border-radius-base: 50rem;
+$lg-path-fonts: '/node_modules/lightgallery/fonts';
+$lg-path-images: '/node_modules/lightgallery/images';
+
+@import '/node_modules/lightgallery/scss/lightgallery-bundle';
+
+.lg-outer .lg-thumb-item {
+  border: 2px solid hsl(var(--muted)) !important;
+
+  &:hover,
+  &.active {
+    border-color: hsl(var(--primary)) !important;
+  }
+}
+
+.lg-sub-html {
+  display: none !important;
+}
+
+.lg-counter {
+  @apply font-mono font-semibold;
+}

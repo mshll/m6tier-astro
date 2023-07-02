@@ -1,0 +1,33 @@
+---
+import { Icon } from 'astro-icon/components';
+import { Link } from 'astro-link';
+
+interface Social {
+  ariaLabel: string;
+  icon: string;
+  href: string;
+}
+
+export interface Props {
+  links: Array<Social>;
+  size: string;
+  class?: string;
+}
+
+const { links, size = 'w-6 h-6', class: className = 'space-x-4' } = Astro.props;
+---
+
+<div class=`flex items-center justify-center ${className}`>
+  {
+    links.map(({ ariaLabel, icon, href }) => (
+      <Link
+        href={href}
+        title={ariaLabel}
+        data-tooltip-target="tooltip-"
+        class="rounded-lg p-3 transition-all ease-in-out hover:bg-accent hover:text-accent-foreground"
+      >
+        {icon && <Icon name={icon + '-fill'} class={size} />}
+      </Link>
+    ))
+  }
+</div>

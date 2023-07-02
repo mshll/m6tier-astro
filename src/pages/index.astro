@@ -2,16 +2,14 @@
 import { SITE } from '~/config.mjs';
 import Layout from '~/layouts/PageLayout.astro';
 
-// import Hero from '~/components/widgets/Hero.astro';
-import Note from '~/components/widgets/Note.astro';
-// import Features from '~/components/widgets/Features.astro';
-// import Features2 from '~/components/widgets/Features2.astro';
-// import Steps from '~/components/widgets/Steps.astro';
-// import Content from '~/components/widgets/Content.astro';
-// import LatestPosts from '~/components/blog/LatestPosts.astro';
-// import FAQs from '~/components/widgets/FAQs.astro';
-// import Stats from '~/components/widgets/Stats.astro';
-// import CallToAction from '~/components/widgets/CallToAction.astro';
+import Gallery from '~/components/Gallery.astro';
+import Socials from '~/components/Socials.astro';
+
+import { Icon } from 'astro-icon/components';
+import { Button } from '~/components/ui/button';
+import { galleryData, socialData } from '~/data';
+import { buttonVariants } from '~/components/ui/button';
+import { Link } from 'astro-link';
 
 const meta = {
   title: SITE.title,
@@ -20,30 +18,136 @@ const meta = {
 };
 ---
 
+<script>
+  var keywords = ['awesome', 'cool', 'fantastic', 'incredible'];
+  var count = 1;
+
+  setInterval(function () {
+    var keywordSpan = document.querySelector('span.keyword');
+
+    keywordSpan?.classList.remove('animate-fadeIn');
+    keywordSpan?.classList.add('animate-fadeOut');
+
+    setTimeout(function () {
+      if (keywordSpan) {
+        keywordSpan.textContent = keywords[count];
+        count++;
+      }
+
+      if (count == keywords.length) count = 0;
+
+      keywordSpan?.classList.remove('animate-fadeOut');
+      keywordSpan?.classList.add('animate-fadeIn');
+    }, 400);
+  }, 2000);
+</script>
+
 <Layout {meta}>
-  <!-- Hero Widget ******************* -->
-
-  <!-- <Hero
-    callToAction={{ text: 'Get template', href: 'https://github.com/onwidget/astrowind', icon: 'tabler:download' }}
-    callToAction2={{ text: 'Learn more', href: '#features' }}
-    image={{ src: import('~/assets/images/hero.png'), alt: 'AstroWind Hero Image' }}
-  >
-    <Fragment slot="title">
-      Free template for <span class="hidden xl:inline">creating websites with</span>
-      <span class="text-accent dark:text-white highlight"> Astro 2.0</span> + Tailwind CSS
-    </Fragment>
-
-    <Fragment slot="subtitle">
-      <span class="hidden sm:inline">
-        <span class="font-semibold">AstroWind</span> is a free, customizable and production-ready template for Astro 2.0
-        + Tailwind CSS.</span
+  <section class="hero mx-auto py-5">
+    <!-- <div class="noise-underlay bg-grid absolute inset-0 -z-50"></div> -->
+    <div class="mx-auto h-32 w-32 translate-y-0 transform transition-all duration-500 ease-in-out hover:-translate-y-2">
+      <img
+        class="h-full w-full rounded-full border-2 border-border object-cover object-center"
+        src="https://instagram.fhio2-2.fna.fbcdn.net/v/t51.2885-19/355831206_293997416358237_9024551201129896347_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.fhio2-2.fna.fbcdn.net&_nc_cat=109&_nc_ohc=y4uL_qtl9y8AX8lHv0p&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfDCGMROuWJ2vSr0HgNX72pOnYBThcG-GCVf63O4WPCKxg&oe=64A394A8&_nc_sid=8b3546"
+        alt=""
+      />
+    </div>
+    <div class="mx-auto pt-5">
+      {
+        /*
+      <h1
+        class="animate-text-gradient bg-gradient-to-r from-[#b2a8fd] via-[#8678f9] to-[#c7d2fe] bg-[200%_auto] bg-clip-text font-serif text-4xl font-extrabold leading-none text-transparent"
       >
-      <span class="block mb-1 sm:hidden font-bold text-blue-600">AstroWind: Production-ready.</span> Suitable for Startups,
-      Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs.
-    </Fragment>
-  </Hero> -->
+        {SITE.name}
+      </h1>
+      */
+      }
+      <!-- <div>
+        <span>This is so</span>
 
-  <!-- Note Widget ******************* -->
+      </div> -->
+      <h1 class="font-serif text-4xl font-extrabold leading-none">{SITE.name}</h1>
+      <p class="mt-4">I'm a photographer, editor, and a student.</p>
+      <Socials {...socialData} size="w-6 h-6" class="mt-5 space-x-4" />
+    </div>
+    <!--  -->
 
-  <Note />
+    <!--  -->
+  </section>
+
+  <style>
+    /* section::before {
+      position: absolute;
+      content: '';
+      z-index: -10;
+      bottom: 25%;
+      height: 150%;
+      width: 150%;
+      left: -25%;
+      background: url(/images/noise.webp) repeat, linear-gradient(247.23deg, #4af2c8 0%, #2f4cb3 100%);
+      background-blend-mode: overlay;
+      mask-image: radial-gradient(rgba(0, 0, 0, 0.7), transparent 70%);
+    }
+    @media screen(lg) {
+      section::before {
+        left: 0%;
+        width: 100%;
+        mask-image: radial-gradient(rgba(0, 0, 0, 0.7), transparent 40%);
+      }
+    } */
+    .hero::before {
+      @apply absolute;
+      content: '';
+      height: 50vw;
+      width: 100vw;
+      top: 30%;
+      translate: 0 -30%;
+      left: -60vw;
+      background: url(/images/noise.webp) repeat, linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%);
+      background-blend-mode: overlay;
+      mask-image: radial-gradient(rgba(0, 0, 0, 0.4), transparent 65%);
+      z-index: -1;
+    }
+
+    .hero::after {
+      @apply absolute;
+      content: '';
+      height: 50vw;
+      width: 100vw;
+      top: 30%;
+      translate: 0 -30%;
+      right: -60vw;
+      background: url(/images/noise.webp) repeat, linear-gradient(247.23deg, #4af2c8 0%, #2f4cb3 100%);
+      background-blend-mode: overlay;
+      mask-image: radial-gradient(rgba(0, 0, 0, 0.5), transparent 65%);
+      z-index: -1;
+    }
+  </style>
+  {
+    /*
+  <style>
+    section::before {
+      position: absolute;
+      content: '';
+      z-index: -1;
+      top: 0%;
+      bottom: 10%;
+      width: 150%;
+      left: -25%;
+      background: url(/images/noise.webp) repeat, linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%);
+      background-blend-mode: overlay;
+      mask-image: radial-gradient(rgba(0, 0, 0, 0.5), transparent 70%);
+    }
+  </style> */
+  }
+
+  <Gallery {...galleryData} class:list={'pb-0'} />
+
+  <div class="relative z-auto m-0 flex flex-wrap justify-center gap-5 pb-28 pt-[10rem]">
+    <div class="noise-underlay bg-grid absolute inset-0 -left-[50vw] -z-50 -mt-[40rem] w-[150vw]"></div>
+    <Link href="https://www.instagram.com/m6tier/" class={buttonVariants({ variant: 'outline', size: 'lg' })}>
+      {/* <Icon name="ri:instagram-line" class="mr-2 h-4 w-4"/> */}
+      Follow me on Instagram for more
+    </Link>
+  </div>
 </Layout>

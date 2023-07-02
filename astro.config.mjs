@@ -9,9 +9,12 @@ import partytown from '@astrojs/partytown';
 import compress from 'astro-compress';
 import { readingTimeRemarkPlugin } from './src/utils/frontmatter.mjs';
 import { SITE } from './src/config.mjs';
-import react from "@astrojs/react";
+import react from '@astrojs/react';
+import icon from 'astro-icon';
+import svelte from "@astrojs/svelte";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const whenExternalScripts = (items = []) => SITE.googleAnalyticsId ? Array.isArray(items) ? items.map(item => item()) : [items()] : [];
+
 
 // https://astro.build/config
 export default defineConfig({
@@ -41,8 +44,17 @@ export default defineConfig({
     js: true,
     svg: false,
     logger: 1
-  }), react()],
+  }), react(), icon({
+    include: {
+      solar: ['*'],
+      ri: ['*'],
+      tabler: ['*']
+    }
+  }), svelte()],
   vite: {
+    ssr: {
+      noExternal: [/^@radix-ui\/*/, 'react-wrap-balancer']
+    },
     resolve: {
       alias: {
         '~': path.resolve(__dirname, './src')

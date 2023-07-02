@@ -2,7 +2,7 @@
 import Layout from '~/layouts/BaseLayout.astro';
 import Header from '~/components/widgets/Header.astro';
 import Footer from '~/components/widgets/Footer.astro';
-import Announcement from '~/components/widgets/Announcement.astro';
+// import Announcement from '~/components/widgets/Announcement.astro';
 
 import { headerData, footerData } from '~/data';
 
@@ -16,15 +16,17 @@ const { meta } = Astro.props;
 ---
 
 <Layout {meta}>
-  <slot name="announcement">
-    <Announcement />
-  </slot>
   <slot name="header">
-    <Header {...headerData} isSticky showRssFeed showToggleTheme />
+    <Header {...headerData} isSticky showRssFeed showToggleTheme autoHide />
   </slot>
-  <main>
-    <slot />
+  <main
+    class="mx-auto flex w-screen max-w-screen-2xl flex-1 justify-stretch px-2 py-2 sm:py-8 md:px-7 xl:px-8 2xl:px-10"
+  >
+    <article class="mx-auto w-full justify-self-center text-center">
+      <slot />
+    </article>
   </main>
+  <slot name="bottom-grid" />
   <slot name="footer">
     <Footer {...footerData} />
   </slot>
