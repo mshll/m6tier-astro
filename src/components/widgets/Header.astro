@@ -54,7 +54,7 @@ const {
     ]}
   >
     <div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-5 py-1">
-      <Link class="flex items-center" href={getHomePermalink()}>
+      <Link class="flex items-center" href={getHomePermalink()} aria-label="Home">
         <Logo />
       </Link>
       <div class="spacer flex-grow"></div>
@@ -99,7 +99,7 @@ const {
     const matches = typeof selector === 'string' ? document.querySelectorAll(selector) : selector;
     if (matches && matches.length) {
       matches.forEach((elem) => {
-        elem.addEventListener(event, (e) => fn(e, elem), false);
+        elem.addEventListener(event, (e) => fn(e, elem), { passive: true });
       });
     }
   }

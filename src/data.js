@@ -72,7 +72,7 @@ export const headerData = {
   links: [
     {
       text: 'Bio',
-      href: getBlogPermalink(),
+      href: getPermalink('/bio'),
     },
     {
       text: 'Contact',

@@ -80,7 +80,7 @@ const loadedImages = await Promise.all(
             format='webp',
             width={width}
             height={height}
-            loading="lazy"
+            loading={index < 8 ? 'eager' : 'lazy'}
           />
         </div>
       </div>
