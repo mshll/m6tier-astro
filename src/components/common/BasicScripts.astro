@@ -26,7 +26,7 @@ import { SITE } from '~/config.mjs';
     const matches = typeof selector === 'string' ? document.querySelectorAll(selector) : selector;
     if (matches && matches.length) {
       matches.forEach((elem) => {
-        elem.addEventListener(event, (e) => fn(e, elem), false);
+        elem.addEventListener(event, (e) => fn(e, elem), { passive: true });
       });
     }
   }

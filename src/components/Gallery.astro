@@ -63,7 +63,7 @@ const loadedImages = await Promise.all(
     }
     msnry.layout();
   });
-  window.addEventListener('resize', msnry.layout());
+  window.addEventListener('resize', msnry.layout(), { passive: true });
   // });
 </script>
 
