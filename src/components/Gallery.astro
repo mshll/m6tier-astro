@@ -20,7 +20,8 @@ const { images } = Astro.props;
 const loadedImages = await Promise.all(
   images.map(async ({  url, width, height }) => {
     return await getImage({
-      src:  width ? import.meta.env.STRAPI_URL + url : url,
+      // src:  width ? import.meta.env.STRAPI_URL + url : url,
+      src: url,
       alt: '',
       format: 'webp',
       width: width,
@@ -73,12 +74,13 @@ const loadedImages = await Promise.all(
         <div class="overflow-hidden rounded border-border">
           <Image
             class="h-auto max-w-full object-cover transition duration-300 ease-in-out hover:scale-110 hover:cursor-zoom-in"
-            src={width ? import.meta.env.STRAPI_URL + url : url}
+            src={url}
             alt=''
             quality={75},
             format='webp',
             width={width}
             height={height}
+            loading="lazy"
           />
         </div>
       </div>

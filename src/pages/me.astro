@@ -30,7 +30,7 @@ try {
 } catch (error) {
   console.error(error);
 }
-const avatarUrl = avatar ? import.meta.env.STRAPI_URL + extractAvatarUrl(avatar) : '';
+const avatarUrl = avatar ? extractAvatarUrl(avatar) : '';
 ---
 
 <Layout {meta}>
