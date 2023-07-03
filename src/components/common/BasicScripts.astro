@@ -32,23 +32,6 @@ import { SITE } from '~/config.mjs';
   }
 
   window.onload = function () {
-    let lastKnownScrollPosition = window.scrollY;
-    let ticking = true;
-
-    attachEvent('#header nav', 'click', function () {
-      document.querySelector('[data-aw-toggle-menu]')?.classList.remove('expanded');
-      document.body.classList.remove('overflow-hidden');
-      document.getElementById('header')?.classList.remove('h-screen');
-      document.querySelector('#header nav')?.classList.add('hidden');
-    });
-
-    attachEvent('[data-aw-toggle-menu]', 'click', function (_, elem) {
-      elem.classList.toggle('expanded');
-      document.body.classList.toggle('overflow-hidden');
-      document.getElementById('header')?.classList.toggle('h-screen');
-      document.querySelector('#header nav')?.classList.toggle('hidden');
-    });
-
     attachEvent('[data-aw-toggle-color-scheme]', 'click', function () {
       if (defaultTheme.endsWith(':only')) {
         return;
@@ -89,28 +72,6 @@ import { SITE } from '~/config.mjs';
       newlink.href = href;
       newlink.click();
     });
-
-    function appyHeaderStylesOnScroll() {
-      const header = document.getElementById('header');
-      if (lastKnownScrollPosition > 60 && !header.classList.contains('scroll')) {
-        document.getElementById('header').classList.add('scroll');
-      } else if (lastKnownScrollPosition <= 60 && header.classList.contains('scroll')) {
-        document.getElementById('header').classList.remove('scroll');
-      }
-      ticking = false;
-    }
-    appyHeaderStylesOnScroll();
-
-    attachEvent([document], 'scroll', function () {
-      lastKnownScrollPosition = window.scrollY;
-
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          appyHeaderStylesOnScroll();
-        });
-        ticking = true;
-      }
-    });
   };
 
   window.onpageshow = function () {
@@ -121,6 +82,6 @@ import { SITE } from '~/config.mjs';
     }
     document.body.classList.remove('overflow-hidden');
     document.getElementById('header')?.classList.remove('h-screen');
-    document.querySelector('#header nav')?.classList.add('hidden');
+    document.querySelector('#header nav ul')?.classList.add('max-md:hidden');
   };
 </script>

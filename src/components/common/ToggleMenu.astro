@@ -7,13 +7,22 @@ export interface Props {
   label?: string;
   class?: string;
   iconClass?: string;
-  iconName?: string;
-  className?: string;
 }
 
-const { label = 'Toggle Menu', iconClass = 'w-5 h-5', iconName = 'tabler:menu', className = '' } = Astro.props;
+const { label = 'Toggle Menu', iconClass = 'w-5 h-5', class: className } = Astro.props;
 ---
 
 <Button variant="outline" size="icon" aria-label={label} data-aw-toggle-menu className={className}>
-  <Icon name={iconName} class={iconClass} optimize={false} />
+  <svg
+    class={iconClass}
+    viewBox="0 0 24 24"
+    preserveAspectRatio="xMidYMid meet"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+  >
+    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <path d="M4 8h16"></path>
+      <path d="M4 16h16"></path>
+    </g>
+  </svg>
 </Button>

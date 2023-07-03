@@ -1,17 +1,33 @@
 ---
 // import { Image } from 'astro:assets';
 import '~/assets/styles/lightgallery.scss';
+import { Image } from '@astrojs/image/components';
+import { getImage } from '@astrojs/image';
 
-interface GalleryImage {
-  text: string;
-  src: string;
+interface ImageInfo {
+  url: string | any
+  width?: number;
+  height?: number;
 }
 
+
 export interface Props {
-  images: Array<GalleryImage>;
+  images: ImageInfo[];
 }
 
 const { images } = Astro.props;
+
+const loadedImages = await Promise.all(
+  images.map(async ({  url, width, height }) => {
+    return await getImage({
+      src:  width ? import.meta.env.STRAPI_URL + url : url,
+      alt: '',
+      format: 'webp',
+      width: width,
+      height: height,
+    });
+  })
+);
 ---
 
 <script>
@@ -52,13 +68,17 @@ const { images } = Astro.props;
 
 <div id="lightgallery" class:list={['py-12', Astro.props['class:list']]}>
   {
-    images.map(({ text, src }) => (
-      <div class="item break-inside w-1/2 p-1 md:p-2 lg:w-1/4" data-src={src}>
+    images.map(({ url, width, height }, index) => (
+      <div class="item break-inside w-1/2 p-1 md:p-2 lg:w-1/4" data-src={loadedImages[index].src} >
         <div class="overflow-hidden rounded border-border">
-          <img
+          <Image
             class="h-auto max-w-full object-cover transition duration-300 ease-in-out hover:scale-110 hover:cursor-zoom-in"
-            src={src}
-            alt={text}
+            src={width ? import.meta.env.STRAPI_URL + url : url}
+            alt=''
+            quality={75},
+            format='webp',
+            width={width}
+            height={height}
           />
         </div>
       </div>

@@ -1,17 +1,15 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import Socials from '~/components/Socials.astro';
 
-import { Textarea } from '~/components/ui/textarea';
-import { Button } from '~/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card';
-import { Input } from '~/components/ui/input';
-import { Label } from '~/components/ui/label';
 import { buttonVariants } from '~/components/ui/button';
 import { Link } from 'astro-link';
 import { headerData, socialData } from '~/data';
 import { Icon } from 'astro-icon/components';
 import Header from '~/components/widgets/Header.astro';
+import { getHomePermalink } from '~/utils/permalinks';
+import fetchApi from '../../lib/strapi';
+import { extractAvatarUrl } from '../../lib/strapi';
 
 const meta = {
   title: 'Contact',
@@ -20,17 +18,30 @@ const meta = {
 };
 
 const links = socialData.links;
+
+let avatar;
+try {
+  avatar = await fetchApi({
+    endpoint: 'avatar',
+    query: {
+      populate: 'Avatar',
+    },
+  });
+} catch (error) {
+  console.error(error);
+}
+const avatarUrl = avatar ? import.meta.env.STRAPI_URL + extractAvatarUrl(avatar) : '';
 ---
 
 <Layout {meta}>
   <Fragment slot="header">
-    <Header {...headerData} isSticky showRssFeed showToggleTheme />
+    <Header {...headerData} showRssFeed showToggleTheme />
   </Fragment>
   <section class="mx-auto pb-5">
     <div class="mx-auto h-32 w-32 translate-y-0 transform transition-all duration-500 ease-in-out hover:-translate-y-2">
       <img
         class="h-full w-full rounded-full border-2 border-border object-cover object-center"
-        src="https://instagram.fhio2-2.fna.fbcdn.net/v/t51.2885-19/355831206_293997416358237_9024551201129896347_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.fhio2-2.fna.fbcdn.net&_nc_cat=109&_nc_ohc=y4uL_qtl9y8AX8lHv0p&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfDCGMROuWJ2vSr0HgNX72pOnYBThcG-GCVf63O4WPCKxg&oe=64A394A8&_nc_sid=8b3546"
+        src={avatarUrl}
         alt=""
       />
     </div>
@@ -57,7 +68,7 @@ const links = socialData.links;
               ))
             }
             <Link
-              href="/"
+              href={getHomePermalink()}
               title="Home"
               class={buttonVariants({ variant: 'outline', size: 'lg' }) +
                 'flex items-start justify-start px-4  text-start'}

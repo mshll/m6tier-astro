@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'global.css';
+
+.bg-grid {
+  background-size: 20px 20px;
+  background-image: linear-gradient(to right, hsl(var(--primary-foreground)) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--primary-foreground)) 1px, transparent 1px);
+  background-position: top center;
+  image-rendering: pixelated;
+  mask-image: linear-gradient(to bottom, transparent, 10%, white, 90%, transparent);
+}
+
+#header.scroll {
+  @apply border-b bg-background/90 backdrop-blur-lg;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+[data-aw-toggle-menu] path {
+  @apply transition duration-300;
+}
+[data-aw-toggle-menu].expanded g > path:first-child {
+  @apply translate-x-[-3px] translate-y-[15px] -rotate-45;
+}
+
+[data-aw-toggle-menu].expanded g > path:last-child {
+  @apply translate-x-[14px] translate-y-[-8px] rotate-45;
+}

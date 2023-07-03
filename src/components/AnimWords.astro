@@ -1,0 +1,51 @@
+---
+export let words = ['Flutter', 'Django', 'Website', 'VueJS', 'NuxtJS'];
+export let animationDuration = 7; // Total animation duration in seconds
+// const { words = [], animationDelay = -1.4 } = Astro.props;
+---
+
+<div class="">
+  Services offered
+  <div class="relative inline-grid grid-cols-1 grid-rows-1 gap-12 overflow-hidden">
+    {
+      words.map((word, index) => {
+        const style = `animation: word ${animationDuration}s infinite; animation-delay: ${
+          (animationDuration / words.length) * index
+        }s;`;
+        return (
+          <span class={`animate-word col-span-full row-span-full`} style={style}>
+            {word}
+          </span>
+        );
+      })
+    }
+  </div>
+</div>
+<p class="text-white">
+  Want to hire me for work ping me <a class="underline" href="mailto:ponnamkarthik3@gmail.com">mail here</a>
+</p>
+
+<style>
+  @keyframes word {
+    0% {
+      transform: translateY(100%);
+    }
+    15% {
+      transform: translateY(-10%);
+      animation-timing-function: ease-out;
+    }
+
+    20% {
+      transform: translateY(0);
+    }
+
+    40%,
+    100% {
+      transform: translateY(-110%);
+    }
+  }
+
+  .animate-word {
+    animation: word 7s infinite;
+  }
+</style>
