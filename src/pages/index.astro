@@ -44,14 +44,6 @@ try {
 const avatarUrl = avatar ? extractAvatarUrl(avatar) : '';
 ---
 
-<script define:vars={{ avatar }}>
-  console.log(avatar);
-</script>
-
-<script is:inline define:vars={{ images }}>
-  console.log(images);
-</script>
-
 <Layout {meta}>
   <section class="hero mx-auto py-5">
     <!-- <div class="noise-underlay bg-grid absolute inset-0 -z-50"></div> -->
