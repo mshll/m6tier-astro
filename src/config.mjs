@@ -8,7 +8,7 @@ const CONFIG = {
   title: "Abdulrahman Almutairi's Lens",
   description:
     "I'm a photographer, editor, and a student. I love to capture the beauty of the world and share it with others.",
-  defaultImage: '/src/assets/images/default.png',
+  defaultImage: '/images/default.png',
 
   defaultTheme: 'system', // Values: "system" | "light" | "dark" | "light:only" | "dark:only"
 
