@@ -1,8 +1,7 @@
 ---
-// import { Image } from 'astro:assets';
 import '~/assets/styles/lightgallery.scss';
-import { Image } from '@astrojs/image/components';
-import { getImage } from '@astrojs/image';
+import { Img } from 'astro-imagetools/components';
+import { renderImg } from 'astro-imagetools/api';
 
 interface ImageInfo {
   url: string | any;
@@ -18,7 +17,7 @@ const { images } = Astro.props;
 
 const loadedImages = await Promise.all(
   images.map(async ({ url, width, height }) => {
-    return await getImage({
+    return await renderImg({
       // src:  width ? import.meta.env.STRAPI_URL + url : url,
       src: url,
       alt: '',
@@ -41,7 +40,8 @@ const loadedImages = await Promise.all(
     lightGallery(lightGalleryElement, {
       plugins: [lgZoom, lgThumbnail],
       speed: 500,
-      selector: '.item',
+      selector: '.gallery-item',
+      licenseKey: '_',
     });
   }
 </script>
@@ -51,8 +51,8 @@ const loadedImages = await Promise.all(
   import imagesLoaded from 'imagesloaded';
   // document.addEventListener('DOMContentLoaded', () => {
   const msnry = new Masonry('#lightgallery', {
-    itemSelector: '.item',
-    columnWidth: '.item',
+    itemSelector: '.gallery-item',
+    columnWidth: '.gallery-item',
     percentPosition: true,
   });
 
@@ -67,12 +67,16 @@ const loadedImages = await Promise.all(
 </script>
 
 <div id="lightgallery" class:list={['py-12', Astro.props['class:list']]}>
+  <style is:global>
+    .gallery-item img {
+      @apply transition duration-300 ease-in-out hover:scale-110 hover:cursor-zoom-in;
+    }
+  </style>
   {
     images.map(({ url, width, height }, index) => (
-      <div class="item break-inside w-1/2 p-1 md:p-2 lg:w-1/4" data-src={loadedImages[index].src}>
+      <div class="gallery-item break-inside w-1/2 p-1 md:p-2 lg:w-1/4" data-src={loadedImages[index].img}>
         <div class="overflow-hidden rounded border-border">
-          <Image
-            class="h-auto max-w-full object-cover transition duration-300 ease-in-out hover:scale-110 hover:cursor-zoom-in"
+          <Img
             src={url}
             alt=""
             quality={75}
@@ -80,6 +84,7 @@ const loadedImages = await Promise.all(
             width={width}
             height={height}
             loading={index < 8 ? 'eager' : 'lazy'}
+            objectFit="fill"
           />
         </div>
       </div>

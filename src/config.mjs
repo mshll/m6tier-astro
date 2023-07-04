@@ -1,16 +1,14 @@
-import defaultImage from './assets/images/default.png';
-
 const CONFIG = {
   name: 'Abdulrahman Almutairi',
 
-  origin: 'https://m6tier.com',
+  origin: 'https://new.m6tier.com',
   basePathname: '/',
   trailingSlash: false,
 
-  title: 'Abdulrahman Almutairi - Photographer Portfolio',
+  title: "Abdulrahman Almutairi's Lens",
   description:
     "I'm a photographer, editor, and a student. I love to capture the beauty of the world and share it with others.",
-  defaultImage: defaultImage,
+  defaultImage: '/src/assets/images/default.png',
 
   defaultTheme: 'system', // Values: "system" | "light" | "dark" | "light:only" | "dark:only"
 
