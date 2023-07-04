@@ -91,7 +91,6 @@
     "react-dom": "^18.2.0",
     "react-headroom": "^3.2.1",
     "sass": "^1.63.6",
-    "svelte": "^4.0.1",
     "tailwind-merge": "^1.13.2",
     "tailwindcss-animate": "^1.0.6"
   }

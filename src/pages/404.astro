@@ -1,24 +1,30 @@
 ---
-import Layout from '~/layouts/BaseLayout.astro';
+import Layout from '~/layouts/PageLayout.astro';
+import { buttonVariants } from '~/components/ui/button';
+import { Link } from 'astro-link';
+import { headerData } from '~/data';
+import Header from '~/components/widgets/Header.astro';
+
 import { getHomePermalink } from '~/utils/permalinks';
 
 const title = `Error 404`;
 ---
 
 <Layout meta={{ title }}>
-  <section class="flex h-full items-center p-16">
-    <div class="container mx-auto my-8 flex flex-col items-center justify-center px-5">
-      <div class="max-w-md text-center">
-        <h2 class="mb-8 text-9xl font-bold">
-          <span class="sr-only">Error</span>
-          <span class="text-primary">404</span>
-        </h2>
-        <p class="text-3xl font-semibold md:text-3xl">Sorry, we couldn't find this page.</p>
-        <p class="mb-8 mt-4 text-lg text-muted dark:text-slate-400">
-          But dont worry, you can find plenty of other things on our homepage.
-        </p>
-        <a rel="noopener noreferrer" href={getHomePermalink()} class="btn ml-4">Back to homepage</a>
-      </div>
+  <Fragment slot="header">
+    <Header {...headerData} showRssFeed showToggleTheme />
+  </Fragment>
+  <section class="mx-auto pb-5">
+    <div class="mx-auto flex max-w-2xl flex-col items-center justify-center p-5">
+      <h1 class="my-4 font-serif text-9xl font-extrabold leading-none">404</h1>
+      <p class="mb-10 mt-3 text-xl">The page you're looking for can't be found.</p>
+      <Link href={getHomePermalink()} class={buttonVariants({ variant: 'outline', size: 'lg' })}>
+        <strong>Home</strong>
+      </Link>
     </div>
   </section>
+
+  <div class="relative" slot="bottom-grid">
+    <div class="noise-underlay bg-grid absolute -left-[50vw] bottom-0 -z-50 h-[20rem] w-[150vw]"></div>
+  </div>
 </Layout>
