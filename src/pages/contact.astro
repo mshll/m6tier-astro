@@ -11,14 +11,10 @@ import Link from '~/components/Link.astro';
 import { headerData, socialData } from '~/data';
 import Header from '~/components/widgets/Header.astro';
 
-const meta = {
-  title: 'Contact',
-  description: '',
-  dontUseTitleTemplate: true,
-};
+const title = 'Contact';
 ---
 
-<Layout {meta}>
+<Layout meta={{ title }}>
   <Fragment slot="header">
     <Header {...headerData} isSticky showRssFeed showToggleTheme />
   </Fragment>

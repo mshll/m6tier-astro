@@ -15,14 +15,12 @@ export interface Props extends MetaSEO {
 }
 
 const defaultImage = SITE.defaultImage
-  ? (
-      await renderImg({
-        src: SITE.defaultImage,
-        alt: 'Default image',
-        width: 1200,
-        height: 628,
-      })
-    ).img
+  ? await renderImg({
+      src: SITE.defaultImage,
+      alt: 'Default image',
+      width: 1200,
+      height: 628,
+    }).img
   : '';
 
 const {
