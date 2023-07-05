@@ -1,6 +1,4 @@
 ---
-import { Icon } from 'astro-icon/components';
-
 import { Button } from '~/components/ui/button';
 
 export interface Props {
@@ -12,7 +10,7 @@ export interface Props {
 const { label = 'Toggle Menu', iconClass = 'w-5 h-5', class: className } = Astro.props;
 ---
 
-<Button variant="outline" size="icon" aria-label={label} data-aw-toggle-menu className={className}>
+<Button variant="ghost" size="icon" aria-label={label} data-aw-toggle-menu className={className}>
   <svg
     class={iconClass}
     viewBox="0 0 24 24"

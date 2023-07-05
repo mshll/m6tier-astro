@@ -24,7 +24,7 @@ const {
 {
   !(SITE?.defaultTheme && SITE.defaultTheme.endsWith(':only')) && (
     <>
-      <Button variant="outline" size="icon" aria-label={label} data-aw-toggle-color-scheme>
+      <Button variant="ghost" size="icon" aria-label={label} data-aw-toggle-color-scheme>
         <Icon name={iconLight} class:list={[iconClass, 'dark:block hidden']} />
         <Icon name={iconDark} class:list={[iconClass, 'block dark:hidden']} />
       </Button>

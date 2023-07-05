@@ -5,6 +5,8 @@ import ToggleMenu from '~/components/common/ToggleMenu.astro';
 import { Link } from 'astro-link';
 import { getHomePermalink, getAsset } from '~/utils/permalinks';
 import { buttonVariants } from '~/components/ui/button';
+import { socialData } from '~/data';
+import Socials from '../Socials.astro';
 
 interface LinkItem {
   text?: string;
@@ -48,7 +50,7 @@ const {
   <div
     id="header"
     class:list={[
-      'z-20 w-full border-border py-1 backdrop-filter transition-all duration-500',
+      'z-20 w-full border-border py-1 backdrop-filter transition-all',
       { 'fixed left-0 top-0': isSticky },
       { 'border-b bg-background/90 backdrop-blur-lg': !DynamicBg },
     ]}
@@ -60,10 +62,10 @@ const {
       <div class="spacer flex-grow"></div>
       <div class="flex space-x-4 md:order-3 md:ml-4">
         {showToggleTheme && <ToggleTheme />}
-        <ToggleMenu class={'md:hidden'} />
+        <ToggleMenu class={'md:hidden z-20'} />
       </div>
       <nav
-        class="h-0 w-full items-center transition-all duration-500 md:order-2 md:flex md:h-auto md:w-auto"
+        class="h-0 w-full items-center md:order-2 md:flex md:h-auto md:w-auto"
         id="navbar"
         aria-label="Main navigation"
       >
@@ -74,14 +76,7 @@ const {
                 {links?.length ? (
                   ''
                 ) : (
-                  <Link
-                    class={
-                      '!block w-full max-md:!my-3 max-md:!h-auto max-md:!p-3 max-md:!text-3xl max-md:!font-bold' +
-                      ' ' +
-                      buttonVariants({ variant: 'ghost' })
-                    }
-                    href={href}
-                  >
+                  <Link class={buttonVariants({ variant: 'ghost' })} href={href}>
                     {text}
                   </Link>
                 )}
@@ -89,6 +84,43 @@ const {
             ))
           }
         </ul>
+        <!-- mobile menu -->
+        <div>
+          <input type="checkbox" id="mobile-menu-toggle" class="peer/mob-menu hidden" />
+          <div
+            class="fixed left-0 top-0 z-20 h-full w-64 -translate-x-full transform border-r border-border bg-background shadow-lg transition-all duration-500 peer-checked/mob-menu:translate-x-0"
+          >
+            <div class="flex h-full flex-col px-6 py-4">
+              <Link class="flex items-center" href={getHomePermalink()} aria-label="Home">
+                <Logo />
+              </Link>
+              <ul class="my-5 w-full flex-1 space-y-3">
+                {
+                  links.map(({ text, href, links }) => (
+                    <li class:list={[{ dropdown: links?.length }, 'flex']}>
+                      {links?.length ? (
+                        ''
+                      ) : (
+                        <Link
+                          class={buttonVariants({ variant: 'ghost' }) + ' !block !h-auto w-full !text-xl'}
+                          href={href}
+                        >
+                          {text}
+                        </Link>
+                      )}
+                    </li>
+                  ))
+                }
+              </ul>
+              <Socials {...socialData} size="w-4 h-4" class="space-x-1 text-muted-foreground" />
+            </div>
+          </div>
+          <div
+            id="mobile-menu-backdrop"
+            class="z-15 invisible fixed left-0 top-0 h-screen w-screen transform bg-transparent transition-all duration-500 peer-checked/mob-menu:visible peer-checked/mob-menu:bg-background/70 peer-checked/mob-menu:backdrop-blur-lg"
+          >
+          </div>
+        </div>
       </nav>
     </div>
   </div>
@@ -151,16 +183,11 @@ const {
 
   //* Mobile Menu
   // Close menu on click outside
-  attachEvent('#header nav', 'click', function () {
+  attachEvent('#mobile-menu-backdrop', 'click', function () {
     document.querySelector('[data-aw-toggle-menu]')?.classList.remove('expanded');
     document.body.classList.remove('overflow-hidden');
     document.documentElement.classList.remove('overflow-x-hidden');
-    document.querySelector('#header nav ul').classList.add('max-md:hidden');
-    document.querySelector('#header nav').classList.add('h-0');
-    document.querySelector('#header nav').classList.remove('h-screen');
-    if (window.scrollY < 100) {
-      document.getElementById('header').classList.remove('scroll');
-    }
+    document.getElementById('mobile-menu-toggle').click();
   });
 
   // Toggle menu
@@ -168,11 +195,6 @@ const {
     elem.classList.toggle('expanded');
     document.body.classList.toggle('overflow-hidden');
     document.documentElement.classList.toggle('overflow-x-hidden');
-    document.querySelector('#header nav ul').classList.toggle('max-md:hidden');
-    document.querySelector('#header nav').classList.toggle('h-0');
-    document.querySelector('#header nav').classList.toggle('h-screen');
-    if (window.scrollY < 100) {
-      document.getElementById('header').classList.toggle('scroll');
-    }
+    document.getElementById('mobile-menu-toggle').click();
   });
 </script>
