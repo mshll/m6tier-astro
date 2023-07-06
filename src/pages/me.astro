@@ -10,6 +10,7 @@ import Header from '~/components/widgets/Header.astro';
 import { getHomePermalink } from '~/utils/permalinks';
 import fetchApi from '../../lib/strapi';
 import { extractAvatarUrl } from '../../lib/strapi';
+import { Img } from 'astro-imagetools/components';
 
 const meta = {
   title: 'Abdulrahman Almutairi',
@@ -38,12 +39,10 @@ const avatarUrl = avatar ? extractAvatarUrl(avatar) : '';
     <Header {...headerData} showRssFeed showToggleTheme />
   </Fragment>
   <section class="mx-auto pb-5">
-    <div class="mx-auto h-32 w-32 translate-y-0 transform transition-all duration-500 ease-in-out hover:-translate-y-2">
-      <img
-        class="h-full w-full rounded-full border-2 border-border object-cover object-center"
-        src={avatarUrl}
-        alt=""
-      />
+    <div
+      class="avatar mx-auto h-32 w-32 translate-y-0 transform transition-all duration-500 ease-in-out hover:-translate-y-2"
+    >
+      <Img src={avatarUrl} alt="" placeholder="dominantColor" loading="eager" />
     </div>
     <h1 class="my-4 font-serif text-4xl font-extrabold leading-none">M6tier</h1>
     <div class="mx-auto flex max-w-2xl flex-col items-center justify-center p-5">

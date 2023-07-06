@@ -17,6 +17,10 @@
   @apply border-b bg-background/90 backdrop-blur-lg;
 }
 
+.avatar img {
+  @apply h-full w-full rounded-full border-2 border-border object-cover object-center;
+}
+
 .dropdown:hover .dropdown-menu {
   display: block;
 }

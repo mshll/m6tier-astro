@@ -1,58 +1,20 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import Socials from '~/components/Socials.astro';
-import { Textarea } from '~/components/ui/textarea';
-import { Button } from '~/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card';
-import { Input } from '~/components/ui/input';
-import { Label } from '~/components/ui/label';
-import { buttonVariants } from '~/components/ui/button';
-import Link from '~/components/Link.astro';
-import { headerData, socialData } from '~/data';
+import { headerData } from '~/data';
 import Header from '~/components/widgets/Header.astro';
+import ContactForm from '~/components/ContactForm.astro';
 
 const title = 'Contact';
 ---
 
 <Layout meta={{ title }}>
   <Fragment slot="header">
-    <Header {...headerData} isSticky showRssFeed showToggleTheme />
+    <Header {...headerData} isSticky showRssFeed showToggleTheme DynamicBg={false} />
   </Fragment>
   <section class="mx-auto py-5">
     <div class="mx-auto flex max-w-2xl flex-col items-center justify-center p-5">
       <!-- <h1 class="mb-5 text-4xl font-bold">Contact</h1> -->
-      <Card className="w-[350px] md:w-[550px] md:space-y-2 border-border text-start">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold">Contact</CardTitle>
-          <CardDescription>
-            Fill out the form below or send me an email at <Link href="mailto:hello@m6tier.com">
-              <strong>hello@m6tier.com</strong>
-            </Link>.
-            <!-- <Socials {...socialData} size="w-4 h-4" class="space-x-2 self-start pt-3 text-muted-foreground" /> -->
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form>
-            <div class="grid w-full items-center gap-4 md:space-y-2">
-              <div class="flex flex-col space-y-1.5">
-                <Label htmlFor="name" className="text-xs">Name</Label>
-                <Input id="name" placeholder="Full name" />
-              </div>
-              <div class="flex flex-col space-y-1.5">
-                <Label htmlFor="email" className="text-xs">Email</Label>
-                <Input id="email" placeholder="name@example.com" />
-              </div>
-              <div class="flex flex-col space-y-1.5">
-                <Label htmlFor="message" className="text-xs">Your message</Label>
-                <Textarea placeholder="Type your message here." id="message" />
-              </div>
-            </div>
-          </form>
-        </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button className="w-full">Send</Button>
-        </CardFooter>
-      </Card>
+      <ContactForm />
     </div>
   </section>
 

@@ -8,6 +8,7 @@ import { buttonVariants } from '~/components/ui/button';
 import { Link } from 'astro-link';
 import fetchApi from '../../lib/strapi';
 import { extractImages, extractAvatarUrl } from '../../lib/strapi';
+import { Img } from 'astro-imagetools/components';
 
 const meta = {
   title: SITE.title,
@@ -47,12 +48,10 @@ const avatarUrl = avatar ? extractAvatarUrl(avatar) : '';
 <Layout {meta}>
   <section class="hero relative mx-auto py-5">
     <!-- <div class="noise-underlay bg-grid absolute inset-0 -z-50"></div> -->
-    <div class="mx-auto h-32 w-32 translate-y-0 transform transition-all duration-500 ease-in-out hover:-translate-y-2">
-      <img
-        class="h-full w-full rounded-full border-2 border-border object-cover object-center"
-        src={avatarUrl}
-        alt=""
-      />
+    <div
+      class="avatar mx-auto h-32 w-32 translate-y-0 transform transition-all duration-500 ease-in-out hover:-translate-y-2"
+    >
+      <Img src={avatarUrl} alt="" placeholder="dominantColor" loading="eager" />
     </div>
     <div class="mx-auto pt-5">
       <h1 class="font-serif text-4xl font-extrabold leading-none">{SITE.name}</h1>
@@ -72,27 +71,26 @@ const avatarUrl = avatar ? extractAvatarUrl(avatar) : '';
       </Link>
     </div>
   </section>
-</Layout>
 
-<style is:global>
-  .hero::before {
-    @apply h-500vh absolute left-1/2 w-full -translate-x-1/2 transform;
-    content: '';
-    z-index: -1;
-    height: 50vh;
-    bottom: 70%;
-    width: 150vw;
-    background: url(/images/noise.webp) repeat, linear-gradient(266.93deg, #f8e42e 0%, #ff7d54 100%);
-    background-blend-mode: overlay;
-    mask-image: radial-gradient(rgba(0, 0, 0, 0.7), transparent 70%);
-  }
-  .dark .h-500vh {
-    height: 150vh !important;
-  }
-</style>
+  <style is:global>
+    .hero::before {
+      @apply h-500vh absolute left-1/2 w-full -translate-x-1/2 transform;
+      content: '';
+      z-index: -1;
+      height: 50vh;
+      bottom: 60%;
+      width: 150vw;
+      background: url(/images/noise.webp) repeat, linear-gradient(266.93deg, #f8e42e 0%, #ff7d54 100%);
+      background-blend-mode: overlay;
+      mask-image: radial-gradient(rgba(0, 0, 0, 0.7), transparent 70%);
+    }
+    .dark .h-500vh {
+      height: 150vh !important;
+    }
+  </style>
 
-{
-  /*
+  {
+    /*
 
   <style>
     .hero::before {
@@ -158,4 +156,5 @@ const avatarUrl = avatar ? extractAvatarUrl(avatar) : '';
       mask-image: radial-gradient(rgba(0, 0, 0, 0.5), transparent 70%);
     }
   </style> */
-}
+  }
+</Layout>

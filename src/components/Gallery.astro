@@ -35,13 +35,14 @@ const loadedImages = await Promise.all(
   import lgThumbnail from 'lightgallery/plugins/thumbnail';
   import lgZoom from 'lightgallery/plugins/zoom';
 
-  const lightGalleryElement = document.getElementById('lightgallery');
+  const lightGalleryElement = document.getElementById('gallery');
   if (lightGalleryElement) {
     lightGallery(lightGalleryElement, {
       plugins: [lgZoom, lgThumbnail],
       speed: 500,
       selector: '.gallery-item',
       licenseKey: '_',
+      download: false,
     });
   }
 </script>
@@ -50,13 +51,13 @@ const loadedImages = await Promise.all(
   import Masonry from 'masonry-layout';
   import imagesLoaded from 'imagesloaded';
   // document.addEventListener('DOMContentLoaded', () => {
-  const msnry = new Masonry('#lightgallery', {
+  const msnry = new Masonry('#gallery', {
     itemSelector: '.gallery-item',
     columnWidth: '.gallery-item',
     percentPosition: true,
   });
 
-  imagesLoaded('#lightgallery').on('progress', function (instance, image) {
+  imagesLoaded('#gallery').on('progress', function (instance, image) {
     if (image.isLoaded) {
       image.img.parentNode.classList.add('border');
     }
@@ -66,7 +67,7 @@ const loadedImages = await Promise.all(
   // });
 </script>
 
-<div id="lightgallery" class:list={['py-12', Astro.props['class:list']]}>
+<div id="gallery" class:list={['py-12', Astro.props['class:list']]}>
   <style is:global>
     .gallery-item img {
       @apply transition duration-300 ease-in-out hover:scale-110 hover:cursor-zoom-in;

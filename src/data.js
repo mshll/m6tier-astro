@@ -71,6 +71,10 @@ export const galleryData = {
 export const headerData = {
   links: [
     {
+      text: 'Gallery',
+      href: getPermalink('/#gallery'),
+    },
+    {
       text: 'Bio',
       href: getPermalink('/bio'),
     },
