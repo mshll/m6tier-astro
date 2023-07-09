@@ -5,8 +5,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import Link from '~/components/Link.astro';
-import { socialData } from '~/data';
-import Socials from '~/components/Socials.astro';
 ---
 
 <style is:global>
@@ -110,22 +108,21 @@ import Socials from '~/components/Socials.astro';
   }
 </style>
 
-<Card className="w-[350px] md:w-[550px] md:space-y-2 border-border text-start">
-  <CardHeader>
+<Card className="w-full md:space-y-2 border-border text-start">
+  <!-- <CardHeader>
     <CardTitle className="text-2xl font-bold">Contact me</CardTitle>
     <CardDescription>
       Fill out the form below or send me an email at <Link href="mailto:hello@m6tier.com">
         <strong>hello@m6tier.com</strong>
       </Link>. You can also find my socials below.
-      <!-- <Socials {...socialData} size="w-4 h-4" class="space-x-2 self-start pt-3 text-muted-foreground" /> -->
     </CardDescription>
-  </CardHeader>
+  </CardHeader> -->
   <CardContent>
-    <form action="https://send.pageclip.co/6ARcWTZzcAOyqr3nv8ormuGjblrq8Bsu" class="pageclip-form" method="post">
+    <form action="https://send.pageclip.co/6ARcWTZzcAOyqr3nv8ormuGjblrq8Bsu" class="pageclip-form pt-6" method="post">
       <div class="grid w-full items-center gap-4 md:space-y-2">
         <div class="flex flex-col space-y-1.5">
           <Label htmlFor="name" className="text-xs">Name</Label>
-          <Input id="name" name="name" placeholder="Full name" required min="4" />
+          <Input id="name" name="name" placeholder="Full name" required minLength={4} />
         </div>
         <div class="flex flex-col space-y-1.5">
           <Label htmlFor="email" className="text-xs">Email</Label>

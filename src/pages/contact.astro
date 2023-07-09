@@ -1,24 +1,110 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import { headerData } from '~/data';
+import { SITE } from '~/config.mjs';
+import { headerData, socialData } from '~/data';
 import Header from '~/components/widgets/Header.astro';
 import ContactForm from '~/components/ContactForm.astro';
+import { Img } from 'astro-imagetools/components';
+import Link from '~/components/Link.astro';
+import Socials from '~/components/Socials.astro';
+import { getGalleryImages } from '~/utils/images';
 
-const title = 'Contact';
+const images = await getGalleryImages();
+images.reverse();
+
+const title = 'Contact me';
 ---
 
 <Layout meta={{ title }}>
   <Fragment slot="header">
     <Header {...headerData} isSticky showRssFeed showToggleTheme DynamicBg={false} />
   </Fragment>
-  <section class="mx-auto py-5">
-    <div class="mx-auto flex max-w-2xl flex-col items-center justify-center p-5">
-      <!-- <h1 class="mb-5 text-4xl font-bold">Contact</h1> -->
+
+  <div class="mx-auto mt-5 flex w-full flex-wrap items-center justify-center md:text-start">
+    <div class="w-full p-4 md:w-1/2 md:px-20">
+      <!-- Content for column 1 -->
+      <div class="mx-3 pt-5">
+        <h1 class="font-serif text-4xl font-bold leading-none">{title}</h1>
+        <p class="mt-5 text-muted-foreground">
+          Fill out the following form or you can send me an email at <Link href="mailto:hello@m6tier.com">
+            <strong>hello@m6tier.com</strong>
+          </Link>. You can also find me on the following socials.
+        </p>
+        <Socials {...socialData} size="w-6 h-6" class="mt-5 space-x-4 text-muted-foreground md:justify-start" />
+      </div>
+    </div>
+    <div class="w-full p-4 md:w-1/2 md:px-20">
+      <!-- Content for column 2 -->
       <ContactForm />
+    </div>
+  </div>
+  <style is:global>
+    .contact-carousel img {
+      @apply !h-full !w-full !object-cover;
+    }
+    .contact-carousel img:nth-child(5n) {
+      @apply !col-span-2;
+    }
+  </style>
+
+  <section class="faded-section relative">
+    <div class="relative mt-6 overflow-hidden">
+      <div
+        aria-hidden="true"
+        class="absolute -inset-x-1 top-[-25.5%] z-[1] h-2/4 scale-x-125 scale-y-75 rounded-[100%] bg-background 2xl:scale-y-95"
+      >
+      </div>
+      <div
+        aria-hidden="true"
+        class="absolute -inset-x-1 bottom-[-25.5%] z-[1] h-2/4 scale-x-125 scale-y-75 rounded-[100%] bg-background 2xl:scale-y-95"
+      >
+      </div>
+      <div class="w-full animate-marquee-30 transition md:animate-marquee-10 xl:animate-marquee-15">
+        <div
+          class="contact-carousel grid h-96 w-[350vw] grid-cols-12 gap-1 sm:h-[40rem] sm:w-[300vw] lg:w-[200vw] 2xl:h-[60rem]"
+        >
+          {
+            images
+              .slice(0, 10)
+              .map((image, index) => (
+                <Img
+                  src={image.url}
+                  alt="carousel image"
+                  width={image.width}
+                  height={image.height}
+                  placeholder="dominantColor"
+                  loading="lazy"
+                />
+              ))
+          }
+        </div>
+      </div>
     </div>
   </section>
 
-  <div class="relative" slot="bottom-grid">
+  <style is:global>
+    .faded-section:before,
+    .faded-section:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 30%;
+      height: 100%;
+      z-index: 15;
+    }
+
+    .faded-section:before {
+      left: 0;
+      background: linear-gradient(to right, hsl(var(--background)) 0%, transparent 100%);
+    }
+
+    .faded-section:after {
+      right: 0;
+      background: linear-gradient(to left, hsl(var(--background)) 0%, transparent 100%);
+    }
+  </style>
+
+  <!-- <div class="relative" slot="bottom-grid">
     <div class="noise-underlay bg-grid absolute -left-[50vw] bottom-0 -z-50 h-[20rem] w-[150vw]"></div>
-  </div>
+  </div> -->
 </Layout>

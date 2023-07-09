@@ -70,10 +70,17 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: 0 },
         },
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'marquee-10': 'marquee 10s linear infinite',
+        'marquee-15': 'marquee 15s linear infinite',
+        'marquee-30': 'marquee 30s linear infinite',
       },
       transitionProperty: {
         height: 'height',

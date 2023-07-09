@@ -2,20 +2,92 @@
 import Layout from '~/layouts/PageLayout.astro';
 import { buttonVariants } from '~/components/ui/button';
 import { Link } from 'astro-link';
-import { headerData } from '~/data';
+import { headerData, socialData } from '~/data';
 import Header from '~/components/widgets/Header.astro';
-
 import { getHomePermalink } from '~/utils/permalinks';
+import { Img } from 'astro-imagetools/components';
+import { getGalleryImages } from '~/utils/images';
+import Socials from '~/components/Socials.astro';
+import ContactForm from '~/components/ContactForm.astro';
 
-const title = `About me`;
+const images = await getGalleryImages();
+images.reverse();
+
+const title = `Bio`;
 ---
 
 <Layout meta={{ title }}>
   <Fragment slot="header">
-    <Header {...headerData} showRssFeed showToggleTheme />
+    <Header {...headerData} isSticky showRssFeed showToggleTheme DynamicBg={false} />
   </Fragment>
 
-  <section class="mx-auto flex h-full flex-col justify-center px-5 pb-20">
+  <div class="flex flex-col items-center justify-center py-10">
+    <div class="mx-3 max-w-2xl pt-5 text-center">
+      <h1 class="font-serif text-4xl font-bold leading-none">{title}</h1>
+      <p class="mt-5 text-muted-foreground">
+        Hi! I'm Abdulrahman Almutairi, a Kuwaiti photographer and student. My passion for photography began in 2019 and
+        grew exponentially during the COVID-19 pandemic, as I had more time to focus on honing my photography skills. In
+        addition to learning photography, I also learned Adobe Lightroom and Photoshop.
+      </p>
+      <Socials {...socialData} size="w-6 h-6" class="mt-5 space-x-4 text-muted-foreground" />
+    </div>
+  </div>
+
+  <style is:global>
+    .bio-carousel img {
+      @apply !h-full !w-full !object-cover;
+    }
+  </style>
+  <section class="bio-carousel mt-5">
+    <div data-rellax-speed="-3" class="rellax overflow-hidden px-1">
+      <div class="flex items-center justify-center gap-1">
+        <div class="h-96 w-20 overflow-hidden rounded-md transition-all duration-500 hover:w-96">
+          {(<Img src={images[0].url} alt="" width={images[0].width} height={images[0].height} />)}
+        </div>
+        <div class="h-80 w-20 overflow-hidden rounded-md transition-all duration-500 hover:w-96">
+          {(<Img src={images[1].url} alt="" width={images[1].width} height={images[1].height} />)}
+        </div>
+        <div class="h-72 w-20 overflow-hidden rounded-md transition-all duration-500 hover:w-96">
+          {(<Img src={images[2].url} alt="" width={images[2].width} height={images[2].height} />)}
+        </div>
+        <div class="h-64 w-20 overflow-hidden rounded-md transition-all duration-500 hover:w-96">
+          {(<Img src={images[3].url} alt="" width={images[3].width} height={images[3].height} />)}
+        </div>
+        <div class="hidden h-60 w-20 overflow-hidden rounded-md transition-all duration-500 hover:w-96 sm:block">
+          {(<Img src={images[4].url} alt="" width={images[4].width} height={images[4].height} />)}
+        </div>
+        <div class="hidden h-56 w-20 overflow-hidden rounded-md transition-all duration-500 hover:w-96 sm:block">
+          {(<Img src={images[5].url} alt="" width={images[5].width} height={images[5].height} />)}
+        </div>
+        <div class="hidden h-52 w-20 overflow-hidden rounded-md transition-all duration-500 hover:w-96 sm:block">
+          {(<Img src={images[6].url} alt="" width={images[6].width} height={images[6].height} />)}
+        </div>
+        <div class="hidden h-52 w-20 overflow-hidden rounded-md transition-all duration-500 hover:w-96 sm:block">
+          {(<Img src={images[7].url} alt="" width={images[7].width} height={images[7].height} />)}
+        </div>
+        <div class="hidden h-56 w-20 overflow-hidden rounded-md transition-all duration-500 hover:w-96 sm:block">
+          {(<Img src={images[8].url} alt="" width={images[8].width} height={images[8].height} />)}
+        </div>
+        <div class="hidden h-60 w-20 overflow-hidden rounded-md transition-all duration-500 hover:w-96 sm:block">
+          {(<Img src={images[9].url} alt="" width={images[9].width} height={images[9].height} />)}
+        </div>
+        <div class="h-64 w-20 overflow-hidden rounded-md transition-all duration-500 hover:w-96">
+          {(<Img src={images[10].url} alt="" width={images[10].width} height={images[10].height} />)}
+        </div>
+        <div class="h-72 w-20 overflow-hidden rounded-md transition-all duration-500 hover:w-96">
+          {(<Img src={images[11].url} alt="" width={images[11].width} height={images[11].height} />)}
+        </div>
+        <div class="h-80 w-20 overflow-hidden rounded-md transition-all duration-500 hover:w-96">
+          {(<Img src={images[12].url} alt="" width={images[12].width} height={images[12].height} />)}
+        </div>
+        <div class="h-96 w-20 overflow-hidden rounded-md transition-all duration-500 hover:w-96">
+          {(<Img src={images[13].url} alt="" width={images[13].width} height={images[13].height} />)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto flex flex-col justify-center px-5 pb-20">
     <div class="mx-auto flex max-w-2xl flex-col px-10">
       <Link href={getHomePermalink()} class={buttonVariants({ variant: 'outline', size: 'lg' })}>
         <strong>Home</strong>

@@ -3,13 +3,12 @@ import { SITE } from '~/config.mjs';
 import Layout from '~/layouts/PageLayout.astro';
 import Gallery from '~/components/Gallery.astro';
 import Socials from '~/components/Socials.astro';
-import { galleryData, socialData } from '~/data';
+import { socialData } from '~/data';
 import { buttonVariants } from '~/components/ui/button';
 import { Link } from 'astro-link';
-import fetchApi from '../../lib/strapi';
-import { extractImages, extractAvatarUrl } from '../../lib/strapi';
 import { Img } from 'astro-imagetools/components';
 import { Icon } from 'astro-icon/components';
+import { getAvatar, getGalleryImages } from '~/utils/images';
 
 const meta = {
   title: SITE.title,
@@ -17,33 +16,8 @@ const meta = {
   dontUseTitleTemplate: true,
 };
 
-let galleries: any = null;
-try {
-  galleries = await fetchApi({
-    endpoint: 'galleries',
-    query: {
-      populate: 'Image',
-      sort: 'id:desc',
-    },
-  });
-} catch (error) {
-  console.error(error);
-}
-const images = galleries && galleries.data && galleries.data.length > 0 ? extractImages(galleries) : galleryData.images;
-
-let avatar;
-try {
-  avatar = await fetchApi({
-    endpoint: 'avatar',
-    query: {
-      populate: 'Avatar',
-    },
-  });
-} catch (error) {
-  console.error(error);
-}
-// const avatarUrl = avatar ? import.meta.env.STRAPI_URL + extractAvatarUrl(avatar) : '';
-const avatarUrl = avatar ? extractAvatarUrl(avatar) : '';
+const images = await getGalleryImages();
+const avatar = await getAvatar();
 ---
 
 <Layout {meta}>
@@ -52,11 +26,11 @@ const avatarUrl = avatar ? extractAvatarUrl(avatar) : '';
     <div
       class="avatar mx-auto h-32 w-32 translate-y-0 transform transition-all duration-500 ease-in-out hover:-translate-y-2"
     >
-      <Img src={avatarUrl} alt="" placeholder="dominantColor" loading="eager" />
+      <Img src={avatar} alt="" placeholder="dominantColor" loading="eager" />
     </div>
     <div class="mx-3 pt-5">
       <h1 class="font-serif text-4xl font-bold leading-none">{SITE.name}</h1>
-      <p class="mt-4">I'm a photographer, editor, and a student.</p>
+      <p class="mt-5 text-muted-foreground">A photographer, editor, and a student.</p>
       <Socials {...socialData} size="w-6 h-6" class="mt-5 space-x-4" />
     </div>
   </section>
