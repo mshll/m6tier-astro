@@ -1,60 +1,36 @@
-import fetchApi, { extractAvatarUrl, extractImages } from 'lib/strapi';
 import { galleryData } from '~/data';
-// import { v2 as cloudinary } from 'cloudinary';
-// import { extractCldImages } from '../../lib/cloudinary';
+import { v2 as cloudinary } from 'cloudinary';
+import { extractCldImages } from '../../lib/cloudinary';
 
-// Cloudinary
-//************** */
-// cloudinary.config({
-//   cloud_name: import.meta.env.CLOUDINARY_NAME,
-//   api_key: import.meta.env.CLOUDINARY_KEY,
-//   api_secret: import.meta.env.CLOUDINARY_SECRET,
-//   secure: true,
-// });
+cloudinary.config({
+  cloud_name: import.meta.env.CLOUDINARY_NAME,
+  api_key: import.meta.env.CLOUDINARY_KEY,
+  api_secret: import.meta.env.CLOUDINARY_SECRET,
+  secure: true,
+});
 
-// try {
-//   await cloudinary.search
-//     .expression('folder:m6tier/*')
-//     .sort_by('public_id', 'desc')
-//     .execute()
-//     .then((result) => {
-//       galleries = extractCldImages(result);
-//     });
-// } catch (error) {
-//   console.error(error);
-// }
-// const images = galleries;
-
-// Strapi
 export const getGalleryImages = async () => {
-  let galleries = null;
   try {
-    galleries = await fetchApi({
-      endpoint: 'galleries',
-      query: {
-        populate: 'Image',
-        sort: 'id:desc',
-      },
-    });
+    const result = await cloudinary.search.expression('folder:m6tier/*').sort_by('public_id', 'desc').execute();
+
+    return extractCldImages(result);
   } catch (error) {
     console.error(error);
   }
-  return galleries && galleries.data && galleries.data.length > 0 ? extractImages(galleries) : galleryData.images;
 };
 
 export const getAvatar = async () => {
-  let avatar = null;
   try {
-    avatar = await fetchApi({
-      endpoint: 'avatar',
-      query: {
-        populate: 'Avatar',
-      },
-    });
+    const result = await cloudinary.search
+      .expression('folder:avatar/*')
+      .sort_by('public_id', 'desc')
+      .max_results(1)
+      .execute();
+
+    return extractCldImages(result)[0];
   } catch (error) {
     console.error(error);
   }
-  return extractAvatarUrl(avatar);
 };
 
 // *****************

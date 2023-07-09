@@ -26,7 +26,7 @@ const avatar = await getAvatar();
     <div
       class="avatar mx-auto h-32 w-32 translate-y-0 transform transition-all duration-500 ease-in-out hover:-translate-y-2"
     >
-      <Img src={avatar} alt="" placeholder="dominantColor" loading="eager" />
+      <Img src={avatar!.url} alt="" placeholder="dominantColor" loading="eager" />
     </div>
     <div class="mx-3 pt-5">
       <h1 class="font-serif text-4xl font-bold leading-none">{SITE.name}</h1>
