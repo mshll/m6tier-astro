@@ -1,0 +1,48 @@
+@import '@fontsource/inter/variable.css';
+
+//  GT Super
+@font-face {
+  font-family: 'GT Super';
+  font-weight: 700;
+  font-style: italic;
+  src: url('/fonts/GT-Super-Display-Bold-Italic.eot') format('embedded-opentype'),
+    url('/fonts/GT-Super-Display-Bold-Italic.woff2') format('woff2'),
+    url('/fonts/GT-Super-Display-Bold-Italic.woff') format('woff'),
+    url('/fonts/GT-Super-Display-Bold-Italic.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Super';
+  font-weight: 700;
+  font-style: normal;
+  src: url('/fonts/GT-Super-Display-Bold.eot') format('embedded-opentype'),
+    url('/fonts/GT-Super-Display-Bold.woff2') format('woff2'), url('/fonts/GT-Super-Display-Bold.woff') format('woff'),
+    url('/fonts/GT-Super-Display-Bold.ttf') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Super';
+  font-weight: 300;
+  font-style: italic;
+  src: url('/fonts/GT-Super-Display-Light-Italic.eot') format('embedded-opentype'),
+    url('/fonts/GT-Super-Display-Light-Italic.woff2') format('woff2'),
+    url('/fonts/GT-Super-Display-Light-Italic.woff') format('woff'), url('/fonts/GT-Super-Display-Light-Italic.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Super';
+  font-weight: 300;
+  font-style: normal;
+  src: url('/fonts/GT-Super-Display-Light.eot') format('embedded-opentype'),
+    url('/fonts/GT-Super-Display-Light.woff2') format('woff2'), url('/fonts/GT-Super-Display-Light.woff') format('woff'),
+    url('/fonts/GT-Super-Display-Light.ttf');
+  font-display: swap;
+}
+
+:root {
+  --font-sans: 'InterVariable', sans-serif;
+  --font-serif: 'GT Super', serif;
+}

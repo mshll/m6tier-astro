@@ -9,6 +9,7 @@ import { Link } from 'astro-link';
 import fetchApi from '../../lib/strapi';
 import { extractImages, extractAvatarUrl } from '../../lib/strapi';
 import { Img } from 'astro-imagetools/components';
+import { Icon } from 'astro-icon/components';
 
 const meta = {
   title: SITE.title,
@@ -53,8 +54,8 @@ const avatarUrl = avatar ? extractAvatarUrl(avatar) : '';
     >
       <Img src={avatarUrl} alt="" placeholder="dominantColor" loading="eager" />
     </div>
-    <div class="mx-auto pt-5">
-      <h1 class="font-serif text-4xl font-extrabold leading-none">{SITE.name}</h1>
+    <div class="mx-3 pt-5">
+      <h1 class="font-serif text-4xl font-bold leading-none">{SITE.name}</h1>
       <p class="mt-4">I'm a photographer, editor, and a student.</p>
       <Socials {...socialData} size="w-6 h-6" class="mt-5 space-x-4" />
     </div>
@@ -66,7 +67,7 @@ const avatarUrl = avatar ? extractAvatarUrl(avatar) : '';
     <div class="relative z-auto m-0 flex flex-wrap justify-center gap-5 pb-28 pt-[10rem]">
       <div class="noise-underlay bg-grid absolute inset-0 -left-[50vw] -z-50 -mt-[40rem] w-[150vw]"></div>
       <Link href="https://www.instagram.com/m6tier/" class={buttonVariants({ variant: 'outline', size: 'lg' })}>
-        {/* <Icon name="ri:instagram-line" class="mr-2 h-4 w-4"/> */}
+        <Icon name="ri:instagram-line" class="mr-2 h-4 w-4" />
         Follow me on Instagram for more
       </Link>
     </div>
@@ -88,73 +89,4 @@ const avatarUrl = avatar ? extractAvatarUrl(avatar) : '';
       height: 150vh !important;
     }
   </style>
-
-  {
-    /*
-
-  <style>
-    .hero::before {
-      @apply absolute h-[200vw] md:h-[100vw];
-      content: '';
-      width: 100vw;
-      top: 10%;
-      translate: 0 -30%;
-      left: -30vw;
-      background: url(/images/noise.webp) repeat, linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%);
-      background-blend-mode: overlay;
-      mask-image: radial-gradient(rgba(0, 0, 0, 0.4), transparent 65%);
-      z-index: -1;
-    }
-
-    .hero::after {
-      @apply absolute h-[200vw] md:h-[100vw];
-      content: '';
-      width: 100vw;
-      top: 10%;
-      translate: 0 -30%;
-      right: -30vw;
-      background: url(/images/noise.webp) repeat, linear-gradient(247.23deg, #4af2c8 0%, #2f4cb3 100%);
-      background-blend-mode: overlay;
-      mask-image: radial-gradient(rgba(0, 0, 0, 0.5), transparent 65%);
-      z-index: -1;
-    }
-  </style>
-
-  <style>
-    section::before {
-      position: absolute;
-      content: '';
-      z-index: -10;
-      bottom: 25%;
-      height: 150%;
-      width: 150%;
-      left: -25%;
-      background: url(/images/noise.webp) repeat, linear-gradient(247.23deg, #4af2c8 0%, #2f4cb3 100%);
-      background-blend-mode: overlay;
-      mask-image: radial-gradient(rgba(0, 0, 0, 0.7), transparent 70%);
-    }
-    @media screen(lg) {
-      section::before {
-        left: 0%;
-        width: 100%;
-        mask-image: radial-gradient(rgba(0, 0, 0, 0.7), transparent 40%);
-      }
-    }
-
-    // ---
-
-    section::before {
-      position: absolute;
-      content: '';
-      z-index: -1;
-      top: 0%;
-      bottom: 10%;
-      width: 150%;
-      left: -25%;
-      background: url(/images/noise.webp) repeat, linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%);
-      background-blend-mode: overlay;
-      mask-image: radial-gradient(rgba(0, 0, 0, 0.5), transparent 70%);
-    }
-  </style> */
-  }
 </Layout>

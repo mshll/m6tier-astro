@@ -30,41 +30,47 @@ const loadedImages = await Promise.all(
 ---
 
 <script>
+  import imagesLoaded from 'imagesloaded';
+  import Masonry from 'masonry-layout';
   import lightGallery from 'lightgallery';
-  // import plugins if you need
   import lgThumbnail from 'lightgallery/plugins/thumbnail';
   import lgZoom from 'lightgallery/plugins/zoom';
 
-  const lightGalleryElement = document.getElementById('gallery');
-  if (lightGalleryElement) {
-    lightGallery(lightGalleryElement, {
-      plugins: [lgZoom, lgThumbnail],
-      speed: 500,
-      selector: '.gallery-item',
-      licenseKey: '_',
-      download: false,
+  document.addEventListener('DOMContentLoaded', () => {
+    const msnry = new Masonry('#gallery', {
+      itemSelector: '.gallery-item',
+      columnWidth: '.gallery-item',
+      percentPosition: true,
     });
-  }
-</script>
 
-<script>
-  import Masonry from 'masonry-layout';
-  import imagesLoaded from 'imagesloaded';
-  // document.addEventListener('DOMContentLoaded', () => {
-  const msnry = new Masonry('#gallery', {
-    itemSelector: '.gallery-item',
-    columnWidth: '.gallery-item',
-    percentPosition: true,
-  });
+    imagesLoaded('#gallery').on('progress', function (instance, image) {
+      if (image.isLoaded) {
+        image.img.parentNode.classList.add('border');
+      }
+      msnry.layout();
+    });
+    window.addEventListener('resize', msnry.layout(), { passive: true });
 
-  imagesLoaded('#gallery').on('progress', function (instance, image) {
-    if (image.isLoaded) {
-      image.img.parentNode.classList.add('border');
+    const lightGalleryElement = document.getElementById('gallery');
+    if (lightGalleryElement) {
+      lightGallery(lightGalleryElement, {
+        plugins: [lgZoom, lgThumbnail],
+        speed: 500,
+        selector: '.gallery-item',
+        licenseKey: '_',
+        download: false,
+      });
+
+      lightGalleryElement.addEventListener('lgBeforeOpen', () => {
+        document.body.classList.add('overflow-hidden');
+        document.documentElement.classList.add('overflow-hidden');
+      });
+      lightGalleryElement.addEventListener('lgBeforeClose', () => {
+        document.body.classList.remove('overflow-hidden');
+        document.documentElement.classList.remove('overflow-hidden');
+      });
     }
-    msnry.layout();
   });
-  window.addEventListener('resize', msnry.layout(), { passive: true });
-  // });
 </script>
 
 <div id="gallery" class:list={['py-12', Astro.props['class:list']]}>

@@ -54,6 +54,8 @@ const {
       { 'fixed left-0 top-0': isSticky },
       { 'border-b bg-background/90 backdrop-blur-lg': !DynamicBg },
     ]}
+    data-auto-hide={autoHide}
+    data-dynamic-bg={DynamicBg}
   >
     <div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-5 py-1">
       <Link class="flex items-center" href={getHomePermalink()} aria-label="Home">
@@ -103,7 +105,9 @@ const {
                         ''
                       ) : (
                         <Link
-                          class={buttonVariants({ variant: 'ghost' }) + ' !block !h-auto w-full !text-lg'}
+                          class={
+                            buttonVariants({ variant: 'ghost' }) + ' mobile-menu-link !block !h-auto w-full !text-lg'
+                          }
                           href={href}
                         >
                           {text}
@@ -127,7 +131,7 @@ const {
   </div>
 </header>
 
-<script define:vars={{ autoHide, DynamicBg }}>
+<script>
   function attachEvent(selector, event, fn) {
     const matches = typeof selector === 'string' ? document.querySelectorAll(selector) : selector;
     if (matches && matches.length) {
@@ -137,11 +141,13 @@ const {
     }
   }
 
+  const header = document.getElementById('header')!;
+  const autoHide = header.hasAttribute('data-auto-hide');
+  const DynamicBg = header.hasAttribute('data-dynamic-bg');
   let lastScrollY = window.scrollY;
   let ticking = true;
 
   function headerBgHandler() {
-    const header = document.getElementById('header');
     // Show header background on scroll
     if (DynamicBg) {
       if (lastScrollY > 100 && !header.classList.contains('scroll')) {
@@ -156,7 +162,6 @@ const {
   headerBgHandler();
 
   function headerAutoHide() {
-    const header = document.getElementById('header');
     let scrollY = window.scrollY;
     if (autoHide && !document.body.classList.contains('fixed') && Math.abs(scrollY - lastScrollY) > 10) {
       if (scrollY > lastScrollY) {
@@ -182,20 +187,29 @@ const {
     }
   });
 
-  //* Mobile Menu
-  // Close menu on click outside
-  attachEvent('#mobile-menu-backdrop', 'click', function () {
-    document.querySelector('[data-aw-toggle-menu]')?.classList.remove('expanded');
-    document.body.classList.remove('overflow-hidden');
-    document.documentElement.classList.remove('overflow-hidden');
-    document.getElementById('mobile-menu-toggle').click();
-  });
+  //* Mobile Menu ---
 
-  // Toggle menu
-  attachEvent('[data-aw-toggle-menu]', 'click', function (_, elem) {
-    elem.classList.toggle('expanded');
+  function toggleMobileMenu() {
+    document.querySelector('[data-aw-toggle-menu]')?.classList.toggle('expanded');
     document.body.classList.toggle('overflow-hidden');
     document.documentElement.classList.toggle('overflow-hidden');
-    document.getElementById('mobile-menu-toggle').click();
-  });
+    document.getElementById('mobile-menu-toggle')!.click();
+  }
+
+  if (window.matchMedia('(max-width: 768px)').matches) {
+    // Toggle menu
+    attachEvent('[data-aw-toggle-menu]', 'click', function () {
+      toggleMobileMenu();
+    });
+
+    // Close menu on click outside
+    attachEvent('#mobile-menu-backdrop', 'click', function () {
+      toggleMobileMenu();
+    });
+
+    // Close menu on link click
+    attachEvent('.mobile-menu-link', 'click', function () {
+      toggleMobileMenu();
+    });
+  }
 </script>
