@@ -7,24 +7,28 @@
   font-weight: bold;
   src: url('/fonts/GT-Super-Display-Bold.woff2') format('woff2'),
     url('/fonts/GT-Super-Display-Bold.woff') format('woff');
+  font-display: swap;
 }
 @font-face {
   font-family: 'GT Super';
   font-style: normal;
   font-weight: 600;
   src: url('/fonts/GT-Super-Display-Medium.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'GT Super';
   font-style: normal;
   font-weight: normal;
   src: url('/fonts/GT-Super-Display-Regular.woff2') format('woff2');
+  font-display: swap;
 }
 @font-face {
   font-family: 'GT Super';
   font-style: normal;
   font-weight: 800;
   src: url('/fonts/GT-Super-Display-Super.woff2') format('woff2');
+  font-display: swap;
 }
 
 :root {
