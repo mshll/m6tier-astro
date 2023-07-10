@@ -1,7 +1,7 @@
 const CONFIG = {
   name: 'Abdulrahman Almutairi',
 
-  origin: 'https://new.m6tier.com',
+  origin: 'https://m6tier.com',
   basePathname: '/',
   trailingSlash: false,
 
