@@ -11,7 +11,7 @@ cloudinary.config({
 
 export const getGalleryImages = async () => {
   try {
-    const result = await cloudinary.search.expression('folder:m6tier/*').sort_by('public_id', 'desc').execute();
+    const result = await cloudinary.search.expression('folder:m6tier/*').execute();
 
     return extractCldImages(result);
   } catch (error) {
@@ -21,11 +21,7 @@ export const getGalleryImages = async () => {
 
 export const getAvatar = async () => {
   try {
-    const result = await cloudinary.search
-      .expression('folder:avatar/*')
-      .sort_by('public_id', 'desc')
-      .max_results(1)
-      .execute();
+    const result = await cloudinary.search.expression('folder:avatar/*').max_results(1).execute();
 
     return extractCldImages(result)[0];
   } catch (error) {

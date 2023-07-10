@@ -8,9 +8,8 @@ import { headerData, socialData } from '~/data';
 import { Icon } from 'astro-icon/components';
 import Header from '~/components/widgets/Header.astro';
 import { getHomePermalink } from '~/utils/permalinks';
-import fetchApi from '../../lib/strapi';
-import { extractAvatarUrl } from '../../lib/strapi';
 import { Img } from 'astro-imagetools/components';
+import { getAvatar } from '~/utils/images';
 
 const meta = {
   title: 'Abdulrahman Almutairi',
@@ -19,19 +18,7 @@ const meta = {
 };
 
 const links = socialData.links;
-
-let avatar;
-try {
-  avatar = await fetchApi({
-    endpoint: 'avatar',
-    query: {
-      populate: 'Avatar',
-    },
-  });
-} catch (error) {
-  console.error(error);
-}
-const avatarUrl = avatar ? extractAvatarUrl(avatar) : '';
+const avatar = await getAvatar();
 ---
 
 <Layout {meta}>
@@ -42,7 +29,7 @@ const avatarUrl = avatar ? extractAvatarUrl(avatar) : '';
     <div
       class="avatar mx-auto h-32 w-32 translate-y-0 transform transition-all duration-500 ease-in-out hover:-translate-y-2"
     >
-      <Img src={avatarUrl} alt="" placeholder="dominantColor" loading="eager" />
+      <Img src={avatar!.url} alt="" loading="eager" format="webp" />
     </div>
     <h1 class="my-4 font-serif text-4xl font-extrabold leading-none">M6tier</h1>
     <div class="mx-auto flex max-w-2xl flex-col items-center justify-center p-5">
@@ -84,4 +71,6 @@ const avatarUrl = avatar ? extractAvatarUrl(avatar) : '';
   <div class="relative" slot="bottom-grid">
     <div class="noise-underlay bg-grid absolute -left-[50vw] bottom-0 -z-50 h-[20rem] w-[150vw]"></div>
   </div>
+
+  <Fragment slot="footer"></Fragment>
 </Layout>

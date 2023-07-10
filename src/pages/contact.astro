@@ -19,24 +19,25 @@ const title = 'Contact me';
     <Header {...headerData} isSticky showRssFeed showToggleTheme DynamicBg={false} />
   </Fragment>
 
-  <div class="mx-auto mt-5 flex w-full flex-wrap items-center justify-center md:text-start">
-    <div class="w-full p-4 md:w-1/2 md:px-20">
+  <section class="mx-auto mt-10 flex w-full flex-wrap items-center justify-center text-start">
+    <div class="w-full md:w-1/2 md:px-20">
       <!-- Content for column 1 -->
-      <div class="mx-3 pt-5">
-        <h1 class="font-serif text-4xl font-bold leading-none">{title}</h1>
+      <div class="mx-3 py-5">
+        <h1 class="font-serif text-4xl font-extrabold leading-none">{title}</h1>
         <p class="mt-5 text-muted-foreground">
           Fill out the following form or you can send me an email at <Link href="mailto:hello@m6tier.com">
-            <strong>hello@m6tier.com</strong>
-          </Link>. You can also find me on the following socials.
+            <strong>hello@m6tier.com</strong>.
+          </Link> You can also find me on the following socials.
         </p>
-        <Socials {...socialData} size="w-6 h-6" class="mt-5 space-x-4 text-muted-foreground md:justify-start" />
+        <Socials {...socialData} size="w-5 h-5" class="mt-5 space-x-4 text-muted-foreground md:justify-start" />
       </div>
     </div>
     <div class="w-full p-4 md:w-1/2 md:px-20">
       <!-- Content for column 2 -->
       <ContactForm />
     </div>
-  </div>
+  </section>
+
   <style is:global>
     .contact-carousel img {
       @apply !h-full !w-full !object-cover;
@@ -45,7 +46,6 @@ const title = 'Contact me';
       @apply !col-span-2;
     }
   </style>
-
   <section class="faded-section relative">
     <div class="relative mt-6 overflow-hidden">
       <div
@@ -63,16 +63,17 @@ const title = 'Contact me';
           class="contact-carousel grid h-96 w-[350vw] grid-cols-12 gap-1 sm:h-[40rem] sm:w-[300vw] lg:w-[200vw] 2xl:h-[60rem]"
         >
           {
-            images
+            images!
               .slice(0, 10)
-              .map((image, index) => (
+              .map((image) => (
                 <Img
                   src={image.url}
                   alt="carousel image"
                   width={image.width}
                   height={image.height}
-                  placeholder="dominantColor"
-                  loading="lazy"
+                  loading="eager"
+                  quality={50}
+                  format="webp"
                 />
               ))
           }
@@ -87,7 +88,7 @@ const title = 'Contact me';
       content: '';
       position: absolute;
       top: 0;
-      width: 30%;
+      width: 20%;
       height: 100%;
       z-index: 15;
     }

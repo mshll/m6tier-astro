@@ -81,7 +81,7 @@ const loadedImages = await Promise.all(
   </style>
   {
     images.map(({ url, width, height }, index) => (
-      <div class="gallery-item break-inside w-1/2 p-1 md:p-2 lg:w-1/4" data-src={loadedImages[index].img}>
+      <div class="gallery-item break-inside w-1/2 p-1 md:p-1 lg:w-1/4" data-src={loadedImages[index].img}>
         <div class="overflow-hidden rounded border-border">
           <Img
             src={url}
@@ -91,8 +91,6 @@ const loadedImages = await Promise.all(
             width={width}
             height={height}
             loading={index < 8 ? 'eager' : 'lazy'}
-            objectFit="fill"
-            placeholder="dominantColor"
           />
         </div>
       </div>

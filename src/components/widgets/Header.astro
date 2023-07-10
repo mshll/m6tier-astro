@@ -58,13 +58,13 @@ const {
     data-dynamic-bg={DynamicBg}
   >
     <div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-5 py-1">
-      <Link class="flex items-center" href={getHomePermalink()} aria-label="Home">
+      <Link class="z-50 flex items-center" href={getHomePermalink()} aria-label="Home">
         <Logo />
       </Link>
-      <div class="spacer flex-grow"></div>
-      <div class="flex space-x-4 md:order-3 md:ml-4">
+      <div class="spacer z-50 flex-grow"></div>
+      <div class="z-50 flex space-x-4 md:order-3 md:ml-4">
         {showToggleTheme && <ToggleTheme />}
-        <ToggleMenu class={'md:hidden z-50'} />
+        <ToggleMenu class={'md:hidden'} />
       </div>
       <nav
         class="h-0 w-full items-center md:order-2 md:flex md:h-auto md:w-auto"
@@ -91,39 +91,28 @@ const {
         <div class="md:hidden">
           <input type="checkbox" id="mobile-menu-toggle" class="peer/mob-menu hidden" />
           <div
-            class="fixed left-0 top-0 z-50 h-full w-64 -translate-x-full transform border-r border-border bg-background shadow-lg transition-all duration-500 peer-checked/mob-menu:translate-x-0"
+            class="invisible fixed inset-0 z-40 flex flex-col items-center justify-between bg-background/90 p-4 opacity-0 backdrop-blur-lg transition-all duration-300 peer-checked/mob-menu:visible peer-checked/mob-menu:opacity-100"
           >
-            <div class="flex h-full flex-col px-6 py-4">
-              <Link class="flex items-center" href={getHomePermalink()} aria-label="Home">
-                <Logo />
-              </Link>
-              <ul class="my-5 w-full flex-1 space-y-3">
-                {
-                  links.map(({ text, href, links }) => (
-                    <li class:list={[{ dropdown: links?.length }, 'flex']}>
-                      {links?.length ? (
-                        ''
-                      ) : (
-                        <Link
-                          class={
-                            buttonVariants({ variant: 'ghost' }) + ' mobile-menu-link !block !h-auto w-full !text-lg'
-                          }
-                          href={href}
-                        >
-                          {text}
-                        </Link>
-                      )}
-                    </li>
-                  ))
-                }
-              </ul>
-              <Socials {...socialData} size="w-4 h-4" class="space-x-1 text-muted-foreground" />
-            </div>
-          </div>
-          <div
-            id="mobile-menu-backdrop"
-            class="invisible fixed left-0 top-0 z-40 h-screen w-screen transform bg-transparent transition-all duration-500 peer-checked/mob-menu:visible peer-checked/mob-menu:bg-background/70 peer-checked/mob-menu:backdrop-blur-lg"
-          >
+            <div class="spacer"></div>
+            <ul class="w-full items-center justify-center space-y-12 text-center text-4xl font-medium">
+              {
+                links.map(({ text, href, links }) => (
+                  <li class:list={[{ dropdown: links?.length }, '']}>
+                    {links?.length ? (
+                      ''
+                    ) : (
+                      <Link
+                        class="mobile-menu-link transition-colors duration-300 hover:text-muted-foreground"
+                        href={href}
+                      >
+                        {text}
+                      </Link>
+                    )}
+                  </li>
+                ))
+              }
+            </ul>
+            <Socials {...socialData} size="w-6 h-6" class="space-x-1 text-muted-foreground" />
           </div>
         </div>
       </nav>
@@ -199,11 +188,6 @@ const {
   if (window.matchMedia('(max-width: 768px)').matches) {
     // Toggle menu
     attachEvent('[data-aw-toggle-menu]', 'click', function () {
-      toggleMobileMenu();
-    });
-
-    // Close menu on click outside
-    attachEvent('#mobile-menu-backdrop', 'click', function () {
       toggleMobileMenu();
     });
 

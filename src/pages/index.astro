@@ -26,10 +26,10 @@ const avatar = await getAvatar();
     <div
       class="avatar mx-auto h-32 w-32 translate-y-0 transform transition-all duration-500 ease-in-out hover:-translate-y-2"
     >
-      <Img src={avatar!.url} alt="" placeholder="dominantColor" loading="eager" />
+      <Img src={avatar!.url} alt="" loading="eager" format="webp" />
     </div>
     <div class="mx-3 pt-5">
-      <h1 class="font-serif text-4xl font-bold leading-none">{SITE.name}</h1>
+      <h1 class="font-serif text-4xl font-extrabold leading-none">{SITE.name}</h1>
       <p class="mt-5 text-muted-foreground">A photographer, editor, and a student.</p>
       <Socials {...socialData} size="w-6 h-6" class="mt-5 space-x-4" />
     </div>
@@ -40,7 +40,10 @@ const avatar = await getAvatar();
 
     <div class="relative z-auto m-0 flex flex-wrap justify-center gap-5 pb-28 pt-[10rem]">
       <div class="noise-underlay bg-grid absolute inset-0 -left-[50vw] -z-50 -mt-[40rem] w-[150vw]"></div>
-      <Link href="https://www.instagram.com/m6tier/" class={buttonVariants({ variant: 'outline', size: 'lg' })}>
+      <Link
+        href="https://www.instagram.com/m6tier/"
+        class={buttonVariants({ variant: 'outline', size: 'lg' }) + ' truncate'}
+      >
         <Icon name="ri:instagram-line" class="mr-2 h-4 w-4" />
         Follow me on Instagram for more
       </Link>
