@@ -1,11 +1,10 @@
 ---
 import '~/assets/styles/base.scss';
-
 import MetaTags from '~/components/common/MetaTags.astro';
 import BasicScripts from '~/components/common/BasicScripts.astro';
-
 import { MetaSEO } from '~/types';
 import { SITE } from '~/config.mjs';
+import { PageTransition } from 'astro-page-transition';
 
 export interface Props {
   meta?: MetaSEO;
@@ -22,6 +21,7 @@ const { language = 'en', textDirection = 'ltr' } = SITE;
   </head>
 
   <body class="text-page flex min-h-screen flex-col overflow-x-hidden bg-background antialiased transition-colors">
+    <PageTransition speed={500} background="hsl(var(--background))" zIndex={99} />
     <slot />
     <BasicScripts />
     <style is:global>
