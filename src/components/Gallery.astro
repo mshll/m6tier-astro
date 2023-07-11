@@ -64,10 +64,10 @@ images.forEach(({ tags }) => {
         class="absolute z-50 mt-1 w-full origin-top-right"
       >
         <div class="rounded-md border border-border bg-background p-2 shadow-lg">
-          <div class="flex flex-col text-sm">
+          <ul class="flex flex-col text-sm">
             {
               [...allTags].map((tag: string) => (
-                <a
+                <li
                   @click={`filterType='${tag}',openFilter=!openFilter, $dispatch('filter-changed', { filterType: '${tag}' })`}
                   class="relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none hover:bg-accent hover:text-accent-foreground"
                 >
@@ -78,10 +78,10 @@ images.forEach(({ tags }) => {
                     <Icon name="tabler:check" class:list={['w-4 h-4']} />
                   </span>
                   <p class="">{tag}</p>
-                </a>
+                </li>
               ))
             }
-          </div>
+          </ul>
         </div>
       </div>
     </div>
@@ -140,32 +140,31 @@ images.forEach(({ tags }) => {
     });
     window.addEventListener('resize', msnry.layout(), { passive: true });
 
-    const lightGalleryElement = document.getElementById('gallery');
-    if (lightGalleryElement) {
-      lightGallery(lightGalleryElement, {
-        plugins: [lgZoom, lgThumbnail],
-        speed: 500,
-        selector: '.gallery-item',
-        licenseKey: '_',
-        download: false,
-      });
+    const lightGalleryElement = document.getElementById('gallery')!;
+    const lightGalleryInstance = lightGallery(lightGalleryElement, {
+      plugins: [lgZoom, lgThumbnail],
+      speed: 500,
+      selector: '.gallery-item',
+      licenseKey: '_',
+      download: false,
+    });
 
-      lightGalleryElement.addEventListener('lgBeforeOpen', () => {
-        document.body.classList.add('overflow-hidden');
-        document.documentElement.classList.add('overflow-hidden');
-      });
-      lightGalleryElement.addEventListener('lgBeforeClose', () => {
-        document.body.classList.remove('overflow-hidden');
-        document.documentElement.classList.remove('overflow-hidden');
-      });
-    }
+    lightGalleryElement.addEventListener('lgBeforeOpen', () => {
+      document.body.classList.add('overflow-hidden');
+      document.documentElement.classList.add('overflow-hidden');
+    });
+    lightGalleryElement.addEventListener('lgBeforeClose', () => {
+      document.body.classList.remove('overflow-hidden');
+      document.documentElement.classList.remove('overflow-hidden');
+    });
 
-    // Update masonry layout when filter changes
+    // Update gallery when filter changes
     document.addEventListener(
       'filter-changed',
       () => {
         setTimeout(() => {
           msnry.layout();
+          lightGalleryInstance.refresh();
         }, 50);
       },
       { passive: true }
