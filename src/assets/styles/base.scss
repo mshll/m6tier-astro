@@ -27,7 +27,7 @@
 }
 
 [data-aw-toggle-menu] path {
-  @apply transition duration-300;
+  @apply transition-transform duration-300;
 }
 [data-aw-toggle-menu].expanded g > path:first-child {
   @apply translate-x-[-3px] translate-y-[15px] -rotate-45;
