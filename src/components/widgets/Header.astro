@@ -91,18 +91,17 @@ const {
         <div class="md:hidden">
           <input type="checkbox" id="mobile-menu-toggle" class="peer/mob-menu hidden" />
           <div
-            class="invisible fixed inset-0 z-40 flex flex-col items-center justify-between bg-background/90 p-4 opacity-0 backdrop-blur-lg transition-all duration-300 peer-checked/mob-menu:visible peer-checked/mob-menu:opacity-100"
+            class="invisible fixed inset-0 z-40 flex flex-col items-center justify-between bg-background/90 p-4 pt-16 opacity-0 backdrop-blur-lg transition-all duration-300 peer-checked/mob-menu:visible peer-checked/mob-menu:opacity-100"
           >
-            <div class="spacer"></div>
-            <ul class="w-full items-center justify-center space-y-12 text-center text-4xl font-medium">
+            <ul class="w-full items-center justify-center divide-y divide-border text-start text-4xl font-medium">
               {
                 links.map(({ text, href, links }) => (
-                  <li class:list={[{ dropdown: links?.length }, '']}>
+                  <li class:list={[{ dropdown: links?.length }, 'py-5']}>
                     {links?.length ? (
                       ''
                     ) : (
                       <Link
-                        class="mobile-menu-link transition-colors duration-300 hover:text-muted-foreground"
+                        class="mobile-menu-link flex transition-colors duration-300 hover:text-muted-foreground"
                         href={href}
                       >
                         {text}
@@ -139,7 +138,7 @@ const {
   function headerBgHandler() {
     // Show header background on scroll
     if (DynamicBg) {
-      if (lastScrollY > 100 && !header.classList.contains('scroll')) {
+      if (lastScrollY > 70 && !header.classList.contains('scroll')) {
         header.classList.add('scroll');
       } else if (lastScrollY <= 100 && header.classList.contains('scroll')) {
         header.classList.remove('scroll');
@@ -152,7 +151,12 @@ const {
 
   function headerAutoHide() {
     let scrollY = window.scrollY;
-    if (autoHide && !document.body.classList.contains('fixed') && Math.abs(scrollY - lastScrollY) > 10) {
+    if (
+      autoHide &&
+      scrollY > 100 &&
+      !document.body.classList.contains('fixed') &&
+      Math.abs(scrollY - lastScrollY) > 10
+    ) {
       if (scrollY > lastScrollY) {
         header.classList.remove('top-0');
         header.classList.add('-top-24');

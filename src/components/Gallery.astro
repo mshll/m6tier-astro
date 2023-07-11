@@ -39,7 +39,7 @@ images.forEach(({ tags }) => {
 
 <div @click.away="openFilter = false" x-data="{ openFilter: false,filterType:'All' }">
   <!-- Filter -->
-  <div class="mt-10 flex w-full justify-start px-1">
+  <div id="gallery" class="mt-10 flex w-full justify-start px-1">
     <div class="relative min-w-[10rem]">
       <button
         @click="openFilter = !openFilter"
@@ -88,7 +88,7 @@ images.forEach(({ tags }) => {
   </div>
 
   <!-- Gallery -->
-  <div id="gallery" class:list={['pb-12 mt-2', Astro.props['class:list']]} x-data="{ filter: 'all' }">
+  <div id="gallery-container" class:list={['pb-12 mt-2', Astro.props['class:list']]} x-data="{ filter: 'all' }">
     <style is:global>
       .gallery-item img {
         @apply object-fill transition duration-300 ease-in-out hover:scale-110 hover:cursor-zoom-in;
@@ -126,13 +126,13 @@ images.forEach(({ tags }) => {
   import lgZoom from 'lightgallery/plugins/zoom';
 
   document.addEventListener('DOMContentLoaded', () => {
-    const msnry = new Masonry('#gallery', {
+    const msnry = new Masonry('#gallery-container', {
       itemSelector: '.gallery-item',
       columnWidth: '.gallery-item',
       percentPosition: true,
     });
 
-    imagesLoaded('#gallery').on('progress', function (instance, image) {
+    imagesLoaded('#gallery-container').on('progress', function (instance, image) {
       if (image.isLoaded) {
         image.img.parentNode.classList.add('border');
       }
@@ -140,7 +140,7 @@ images.forEach(({ tags }) => {
     });
     window.addEventListener('resize', msnry.layout(), { passive: true });
 
-    const lightGalleryElement = document.getElementById('gallery')!;
+    const lightGalleryElement = document.getElementById('gallery-container')!;
     const lightGalleryInstance = lightGallery(lightGalleryElement, {
       plugins: [lgZoom, lgThumbnail],
       speed: 500,

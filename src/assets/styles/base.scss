@@ -19,7 +19,7 @@
 }
 
 .avatar img {
-  @apply h-full w-full rounded-full border-2 border-border object-cover object-center;
+  @apply h-full w-full transform rounded-full border-2 border-border object-cover object-center transition-transform duration-500 hover:scale-105;
 }
 
 .dropdown:hover .dropdown-menu {

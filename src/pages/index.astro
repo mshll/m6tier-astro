@@ -23,9 +23,7 @@ const avatar = await getAvatar();
 <Layout {meta}>
   <section class="hero relative mx-auto py-5">
     <!-- <div class="noise-underlay bg-grid absolute inset-0 -z-50"></div> -->
-    <div
-      class="avatar mx-auto h-32 w-32 translate-y-0 transform transition-all duration-500 ease-in-out hover:-translate-y-2"
-    >
+    <div class="avatar mx-auto h-32 w-32">
       <Img src={avatar!.url} alt="" loading="eager" format="webp" />
     </div>
     <div class="mx-3 pt-5">
