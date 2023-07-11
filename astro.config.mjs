@@ -11,6 +11,7 @@ import { SITE } from './src/config.mjs';
 import react from '@astrojs/react';
 import icon from 'astro-icon';
 import { astroImageTools } from 'astro-imagetools';
+import alpinejs from '@astrojs/alpinejs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const whenExternalScripts = (items = []) =>
   SITE.googleAnalyticsId ? (Array.isArray(items) ? items.map((item) => item()) : [items()]) : [];
@@ -58,6 +59,7 @@ export default defineConfig({
         tabler: ['*'],
       },
     }),
+    alpinejs(),
   ],
   vite: {
     ssr: {

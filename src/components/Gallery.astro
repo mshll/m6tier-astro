@@ -2,11 +2,13 @@
 import '~/assets/styles/lightgallery.scss';
 import { Img } from 'astro-imagetools/components';
 import { renderImg } from 'astro-imagetools/api';
+import { Icon } from 'astro-icon/components';
 
 interface ImageInfo {
   url: string | any;
   width?: number;
   height?: number;
+  tags?: string[];
 }
 
 export interface Props {
@@ -27,7 +29,94 @@ const loadedImages = await Promise.all(
     });
   })
 );
+
+const allTags = new Set();
+allTags.add('All');
+images.forEach(({ tags }) => {
+  tags!.forEach((tag) => allTags.add(tag));
+});
 ---
+
+<div @click.away="openFilter = false" x-data="{ openFilter: false,filterType:'All' }">
+  <!-- Filter -->
+  <div class="mt-10 flex w-full justify-start px-1">
+    <div class="relative min-w-[10rem]">
+      <button
+        @click="openFilter = !openFilter"
+        class="flex h-9 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground hover:outline-none hover:ring-1 hover:ring-ring"
+      >
+        <span x-text="filterType">All</span>
+        <Icon
+          name="tabler:chevron-down"
+          class:list={['h-4 w-4 opacity-50 ml-2 transform transition-transform duration-200']}
+          :class="{'-rotate-180': openFilter, 'rotate-0': !openFilter}"
+        />
+      </button>
+      <div
+        x-cloak
+        x-show="openFilter"
+        x-transition:enter="transition ease-out duration-100"
+        x-transition:enter-start="transform opacity-0 scale-95"
+        x-transition:enter-end="transform opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-75"
+        x-transition:leave-start="transform opacity-100 scale-100"
+        x-transition:leave-end="transform opacity-0 scale-95"
+        class="absolute z-50 mt-1 w-full origin-top-right"
+      >
+        <div class="rounded-md border border-border bg-background p-2 shadow-lg">
+          <div class="flex flex-col text-sm">
+            {
+              [...allTags].map((tag: string) => (
+                <a
+                  @click={`filterType='${tag}',openFilter=!openFilter, $dispatch('filter-changed', { filterType: '${tag}' })`}
+                  class="relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none hover:bg-accent hover:text-accent-foreground"
+                >
+                  <span
+                    class="absolute right-2 flex h-3.5 w-3.5 items-center justify-center"
+                    x-show={`filterType == '${tag}'`}
+                  >
+                    <Icon name="tabler:check" class:list={['w-4 h-4']} />
+                  </span>
+                  <p class="">{tag}</p>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gallery -->
+  <div id="gallery" class:list={['pb-12 mt-2', Astro.props['class:list']]} x-data="{ filter: 'all' }">
+    <style is:global>
+      .gallery-item img {
+        @apply object-fill transition duration-300 ease-in-out hover:scale-110 hover:cursor-zoom-in;
+      }
+    </style>
+    {
+      images.map(({ url, width, height, tags }, index) => (
+        <div
+          class="break-inside w-1/2 p-1 md:p-1 lg:w-1/4"
+          data-src={loadedImages[index].img}
+          x-bind:class={`(filterType == 'All' || '${tags}'.includes(filterType)) ? 'gallery-item' : 'hidden'`}
+        >
+          <div class="overflow-hidden rounded border-border">
+            <Img
+              src={url}
+              alt=""
+              quality={75}
+              format="webp"
+              width={width}
+              height={height}
+              loading={index < 8 ? 'eager' : 'lazy'}
+            />
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
 
 <script>
   import imagesLoaded from 'imagesloaded';
@@ -70,30 +159,16 @@ const loadedImages = await Promise.all(
         document.documentElement.classList.remove('overflow-hidden');
       });
     }
+
+    // Update masonry layout when filter changes
+    document.addEventListener(
+      'filter-changed',
+      () => {
+        setTimeout(() => {
+          msnry.layout();
+        }, 50);
+      },
+      { passive: true }
+    );
   });
 </script>
-
-<div id="gallery" class:list={['py-12', Astro.props['class:list']]}>
-  <style is:global>
-    .gallery-item img {
-      @apply object-fill transition duration-300 ease-in-out hover:scale-110 hover:cursor-zoom-in;
-    }
-  </style>
-  {
-    images.map(({ url, width, height }, index) => (
-      <div class="gallery-item break-inside w-1/2 p-1 md:p-1 lg:w-1/4" data-src={loadedImages[index].img}>
-        <div class="overflow-hidden rounded border-border">
-          <Img
-            src={url}
-            alt=""
-            quality={75}
-            format="webp"
-            width={width}
-            height={height}
-            loading={index < 8 ? 'eager' : 'lazy'}
-          />
-        </div>
-      </div>
-    ))
-  }
-</div>
