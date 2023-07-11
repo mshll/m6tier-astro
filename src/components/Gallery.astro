@@ -30,11 +30,15 @@ const loadedImages = await Promise.all(
   })
 );
 
-const allTags = new Set();
-allTags.add('All');
+const allTags: string[] = ['All'];
 images.forEach(({ tags }) => {
-  tags!.forEach((tag) => allTags.add(tag));
+  tags!.forEach((tag) => {
+    if (!allTags.includes(tag)) {
+      allTags.push(tag);
+    }
+  });
 });
+allTags.sort();
 ---
 
 <div @click.away="openFilter = false" x-data="{ openFilter: false,filterType:'All' }">
