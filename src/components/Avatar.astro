@@ -10,7 +10,7 @@ const avatar = await getAvatar();
     @apply h-full w-full transform rounded-full object-cover object-center transition-transform duration-500 hover:scale-105;
   }
   .avatar img:last-of-type {
-    @apply absolute left-0 top-0 -z-10 scale-90 blur-xl;
+    @apply absolute left-0 top-0 -z-10 scale-90 opacity-80 blur-md md:blur-xl;
   }
 </style>
 
