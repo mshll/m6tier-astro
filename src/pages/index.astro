@@ -6,9 +6,9 @@ import Socials from '~/components/Socials.astro';
 import { socialData } from '~/data';
 import { buttonVariants } from '~/components/ui/button';
 import { Link } from 'astro-link';
-import { Img } from 'astro-imagetools/components';
 import { Icon } from 'astro-icon/components';
-import { getAvatar, getGalleryImages } from '~/utils/images';
+import { getGalleryImages } from '~/utils/images';
+import Avatar from '~/components/Avatar.astro';
 
 const meta = {
   title: SITE.title,
@@ -17,15 +17,11 @@ const meta = {
 };
 
 const images = await getGalleryImages();
-const avatar = await getAvatar();
 ---
 
 <Layout {meta}>
   <section class="hero relative mx-auto py-5">
-    <!-- <div class="noise-underlay bg-grid absolute inset-0 -z-50"></div> -->
-    <div class="avatar mx-auto h-32 w-32">
-      <Img src={avatar!.url} alt="" loading="eager" format="webp" />
-    </div>
+    <Avatar />
     <div class="mx-3 pt-5">
       <h1 class="font-serif text-4xl font-extrabold leading-none">{SITE.name}</h1>
       <p class="mt-5 text-muted-foreground">A photographer, editor, and a student.</p>
@@ -34,17 +30,20 @@ const avatar = await getAvatar();
   </section>
 
   <section>
-    <Gallery {images} class:list={'pb-0'} />
+    <Gallery {images} />
 
-    <div class="relative z-auto m-0 flex flex-wrap justify-center gap-5 pb-28 pt-[10rem]">
-      <div class="noise-underlay bg-grid absolute inset-0 -left-[50vw] -z-50 -mt-[40rem] w-[150vw]"></div>
+    <div class="relative flex flex-wrap justify-center py-28">
       <Link
         href="https://www.instagram.com/m6tier/"
         class={buttonVariants({ variant: 'outline', size: 'lg' }) + ' truncate'}
       >
         <Icon name="ri:instagram-line" class="mr-2 h-4 w-4" />
-        Follow me on Instagram for more
+        View more on Instagram
       </Link>
     </div>
   </section>
+
+  <div slot="bottom-grid">
+    <div class="noise-underlay bg-grid absolute -left-[50vw] bottom-24 -z-50 h-[50%] w-[150vw]"></div>
+  </div>
 </Layout>

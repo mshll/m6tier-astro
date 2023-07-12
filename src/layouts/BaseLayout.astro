@@ -19,7 +19,9 @@ const { language = 'en', textDirection = 'ltr' } = SITE;
     <MetaTags {...meta} />
   </head>
 
-  <body class="text-page flex min-h-screen flex-col overflow-x-hidden bg-background antialiased transition-colors">
+  <body
+    class="text-page relative flex min-h-screen flex-col overflow-x-hidden bg-background antialiased transition-colors"
+  >
     <slot />
     <BasicScripts />
     <style is:global>

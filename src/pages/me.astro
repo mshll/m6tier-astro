@@ -8,8 +8,7 @@ import { headerData, socialData } from '~/data';
 import { Icon } from 'astro-icon/components';
 import Header from '~/components/widgets/Header.astro';
 import { getHomePermalink } from '~/utils/permalinks';
-import { Img } from 'astro-imagetools/components';
-import { getAvatar } from '~/utils/images';
+import Avatar from '~/components/Avatar.astro';
 
 const meta = {
   title: 'Abdulrahman Almutairi',
@@ -18,7 +17,6 @@ const meta = {
 };
 
 const links = socialData.links;
-const avatar = await getAvatar();
 ---
 
 <Layout {meta}>
@@ -26,11 +24,7 @@ const avatar = await getAvatar();
     <Header {...headerData} showRssFeed showToggleTheme />
   </Fragment>
   <section class="mx-auto pb-5">
-    <div
-      class="avatar mx-auto h-32 w-32 translate-y-0 transform transition-all duration-500 ease-in-out hover:-translate-y-2"
-    >
-      <Img src={avatar!.url} alt="" loading="eager" format="webp" />
-    </div>
+    <Avatar />
     <h1 class="my-4 font-serif text-4xl font-extrabold leading-none">M6tier</h1>
     <div class="mx-auto flex max-w-2xl flex-col items-center justify-center p-5">
       <!-- <h1 class="mb-5 text-4xl font-bold">Contact</h1> -->
@@ -59,7 +53,6 @@ const avatar = await getAvatar();
               class={buttonVariants({ variant: 'outline', size: 'lg' }) +
                 'flex items-start justify-start px-4  text-start'}
             >
-              <!-- <Icon name='' class="mr-2 h-6 w-6" /> -->
               m6tier.com
             </Link>
           </div>

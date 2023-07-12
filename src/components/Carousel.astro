@@ -1,0 +1,56 @@
+---
+import { Img } from 'astro-imagetools/components';
+import { getGalleryImages } from '~/utils/images';
+
+const images = await getGalleryImages();
+---
+
+<style is:global>
+  .carousel img {
+    @apply !h-full !w-full rounded border border-border transition duration-300 ease-in-out;
+  }
+</style>
+<section class:list={['faded-section relative my-12 md:mx-5', Astro.props['class:list']]}>
+  <div class="relative mt-6 overflow-hidden">
+    <div class="md:hover:animate-paused w-full animate-marquee transition">
+      <div class="carousel grid h-40 w-[350vw] grid-cols-12 gap-3 md:w-[200vw]">
+        {
+          images!
+            .slice(0, 12)
+            .map((image) => (
+              <Img
+                src={image.url}
+                alt="carousel image"
+                width={image.width}
+                height={image.height}
+                loading="lazy"
+                quality={50}
+                format="webp"
+              />
+            ))
+        }
+      </div>
+    </div>
+  </div>
+  <div class="relative mt-3 overflow-hidden">
+    <div class="md:hover:animate-paused w-full animate-marquee-reverse transition">
+      <div class="carousel grid h-40 w-[350vw] grid-cols-12 gap-3 md:w-[200vw]">
+        {
+          images!
+            .slice(8, 20)
+            .map((image) => (
+              <Img
+                src={image.url}
+                alt="carousel image"
+                width={image.width}
+                height={image.height}
+                loading="eager"
+                quality={50}
+                format="webp"
+              />
+            ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

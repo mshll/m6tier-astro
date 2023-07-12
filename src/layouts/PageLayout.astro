@@ -30,20 +30,4 @@ const { meta } = Astro.props;
   <slot name="footer">
     <Footer {...footerData} />
   </slot>
-
-  <style is:global>
-    main::before {
-      @apply absolute -rotate-[30deg] transform;
-      content: '';
-      z-index: -1;
-      left: -10vw;
-      top: 0vh;
-      width: 150vw;
-      height: 60vh;
-      background: url(/images/noise.webp) repeat,
-        radial-gradient(ellipse, hsl(var(--muted-foreground)) 0%, hsl(var(--muted)) 100%);
-      background-blend-mode: overlay;
-      mask-image: radial-gradient(ellipse, rgba(0, 0, 0, var(--alpha)), transparent 60%);
-    }
-  </style>
 </Layout>

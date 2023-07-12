@@ -12,7 +12,7 @@ interface ImageInfo {
 }
 
 export interface Props {
-  images: ImageInfo[];
+  images: ImageInfo[] | any;
 }
 
 const { images } = Astro.props;
@@ -114,6 +114,7 @@ allTags.sort();
               width={width}
               height={height}
               loading={index < 8 ? 'eager' : 'lazy'}
+              fit="fill"
             />
           </div>
         </div>

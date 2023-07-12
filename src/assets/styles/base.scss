@@ -18,12 +18,35 @@
   @apply border-b bg-background/90 backdrop-blur-lg;
 }
 
-.avatar img {
-  @apply h-full w-full transform rounded-full border-2 border-border object-cover object-center transition-transform duration-500 hover:scale-105;
+@layer utilities {
+  .animate-paused {
+    animation-play-state: paused;
+  }
 }
 
 .dropdown:hover .dropdown-menu {
   display: block;
+}
+
+.faded-section:before,
+.faded-section:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 30%;
+  height: 100%;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.faded-section:before {
+  left: 0;
+  background: linear-gradient(to right, hsl(var(--background)) 0%, transparent 100%);
+}
+
+.faded-section:after {
+  right: 0;
+  background: linear-gradient(to left, hsl(var(--background)) 0%, transparent 100%);
 }
 
 [data-aw-toggle-menu] path {
