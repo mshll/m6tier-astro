@@ -1,8 +1,7 @@
 ---
 import { Img } from 'astro-imagetools/components';
-import { getGalleryImages } from '~/utils/images';
 
-const images = await getGalleryImages();
+const { images } = Astro.props;
 ---
 
 <style is:global>
@@ -37,7 +36,7 @@ const images = await getGalleryImages();
       <div class="carousel grid h-40 w-[350vw] grid-cols-12 gap-3 md:w-[200vw]">
         {
           images!
-            .slice(8, 20)
+            .slice(13, 25)
             .map((image) => (
               <Img
                 src={image.url}
