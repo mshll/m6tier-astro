@@ -11,7 +11,7 @@ cloudinary.config({
 
 export const getGalleryImages = async () => {
   try {
-    const result = await cloudinary.search.expression('folder:m6tier/*').with_field('tags').execute();
+    const result = await cloudinary.search.expression('folder:m6tier/*').max_results(500).with_field('tags').execute();
 
     return extractCldImages(result);
   } catch (error) {
