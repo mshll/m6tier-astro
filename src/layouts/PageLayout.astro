@@ -1,10 +1,9 @@
 ---
 import Layout from '~/layouts/BaseLayout.astro';
-import Header from '~/components/widgets/Header.astro';
-import Footer from '~/components/widgets/Footer.astro';
-// import Announcement from '~/components/widgets/Announcement.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
 
-import { headerData, footerData } from '~/data';
+import { headerData } from '~/data';
 
 import { MetaSEO } from '~/types';
 
@@ -19,15 +18,17 @@ const { meta } = Astro.props;
   <slot name="header">
     <Header {...headerData} isSticky showRssFeed showToggleTheme autoHide />
   </slot>
+
   <main
-    class="mx-auto flex w-screen max-w-screen-2xl flex-1 justify-center px-2 py-2 sm:py-8 md:px-7 xl:px-8 2xl:px-10"
+    class="relative mx-auto flex w-screen max-w-screen-2xl flex-1 justify-center p-2 sm:py-8 md:px-7 xl:px-8 2xl:px-10"
   >
     <article class:list={['mx-auto w-full text-center', Astro.props['class:list']]}>
       <slot />
     </article>
+    <slot name="bottom-grid" />
   </main>
-  <slot name="bottom-grid" />
+
   <slot name="footer">
-    <Footer {...footerData} />
+    <Footer />
   </slot>
 </Layout>

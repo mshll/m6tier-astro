@@ -27,11 +27,11 @@ const images = await getGalleryImages();
       <p class="mt-5 text-muted-foreground">A photographer, editor, and a student.</p>
       <Socials {...socialData} size="w-6 h-6" class="mt-5 space-x-2 text-muted-foreground md:space-x-4" />
     </div>
-    <div class="absolute left-0 top-0 -z-10 min-h-screen w-screen">
+    <div class="absolute -top-10 left-0 -z-10 min-h-screen w-screen">
       <img
         src="/images/bghero-dark.webp"
         alt=""
-        class="hidden h-[70vh] w-screen select-none object-cover object-right opacity-70 dark:block md:h-screen"
+        class="hidden h-[70vh] w-screen select-none object-cover object-right dark:block md:h-screen"
         decoding="async"
         loading="eager"
       />
@@ -59,7 +59,5 @@ const images = await getGalleryImages();
     </div>
   </section>
 
-  <div slot="bottom-grid">
-    <div class="noise-underlay bg-grid absolute -left-[50vw] bottom-8 -z-50 h-[50%] w-[150vw]"></div>
-  </div>
+  <div slot="bottom-grid" class="noise-underlay bg-grid absolute bottom-0 -z-50 h-[50%] w-screen"></div>
 </Layout>

@@ -6,7 +6,7 @@ import { buttonVariants } from '~/components/ui/button';
 import { Link } from 'astro-link';
 import { headerData, socialData } from '~/data';
 import { Icon } from 'astro-icon/components';
-import Header from '~/components/widgets/Header.astro';
+import Header from '~/components/Header.astro';
 import { getHomePermalink } from '~/utils/permalinks';
 import Avatar from '~/components/Avatar.astro';
 
@@ -26,9 +26,9 @@ const links = socialData.links;
   <section class="mx-auto pb-5">
     <Avatar />
     <h1 class="my-4 font-serif text-4xl font-extrabold leading-none">M6tier</h1>
-    <div class="mx-auto flex max-w-2xl flex-col items-center justify-center p-5">
+    <div class="mx-auto flex max-w-2xl flex-col items-center justify-center p-1">
       <!-- <h1 class="mb-5 text-4xl font-bold">Contact</h1> -->
-      <Card className="w-[350px] md:w-[550px] md:space-y-2 border-border text-start">
+      <Card className="w-full max-w-[550px] md:space-y-2 border-border text-start">
         <CardContent>
           <div class="mt-5 grid w-full items-center gap-4 md:space-y-2">
             {
@@ -61,9 +61,6 @@ const links = socialData.links;
     </div>
   </section>
 
-  <div class="relative" slot="bottom-grid">
-    <div class="noise-underlay bg-grid absolute -left-[50vw] bottom-0 -z-50 h-[20rem] w-[150vw]"></div>
-  </div>
-
+  <div slot="bottom-grid" class="noise-underlay bg-grid absolute bottom-0 -z-50 h-screen w-screen"></div>
   <Fragment slot="footer"></Fragment>
 </Layout>

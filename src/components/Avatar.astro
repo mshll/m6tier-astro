@@ -7,14 +7,10 @@ const avatar = await getAvatar();
 
 <style is:global>
   .avatar img {
-    @apply h-full w-full transform rounded-full object-cover object-center transition-transform duration-500 hover:scale-105;
-  }
-  .avatar img:last-of-type {
-    @apply absolute left-0 top-0 -z-10 scale-90 opacity-80 blur-md md:blur-xl;
+    @apply h-full w-full transform rounded-full border border-border object-cover object-center transition-transform duration-500 hover:scale-105;
   }
 </style>
 
 <div class="avatar relative mx-auto h-32 w-32">
-  <Img src={avatar!.url} alt="" loading="eager" format="webp" layout="fill" />
   <Img src={avatar!.url} alt="" loading="eager" format="webp" layout="fill" />
 </div>

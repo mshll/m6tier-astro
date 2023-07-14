@@ -20,7 +20,6 @@ const { images } = Astro.props;
 const loadedImages = await Promise.all(
   images.map(async ({ url, width, height }) => {
     return await renderImg({
-      // src:  width ? import.meta.env.STRAPI_URL + url : url,
       src: url,
       alt: '',
       format: 'webp',
@@ -52,8 +51,8 @@ allTags.sort();
         <span x-text="filterType">All</span>
         <Icon
           name="tabler:chevron-down"
-          class:list={['h-4 w-4 opacity-50 ml-2 transform transition-transform duration-200']}
-          :class="{'-rotate-180': openFilter, 'rotate-0': !openFilter}"
+          class:list={['h-4 w-4 opacity-50 ml-2 transform transition-transform duration-300']}
+          :class="{'-scale-y-100': openFilter, 'rotate-0': !openFilter}"
         />
       </button>
       <div

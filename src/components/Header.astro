@@ -6,7 +6,7 @@ import { Link } from 'astro-link';
 import { getHomePermalink, getAsset } from '~/utils/permalinks';
 import { buttonVariants } from '~/components/ui/button';
 import { socialData } from '~/data';
-import Socials from '../Socials.astro';
+import Socials from './Socials.astro';
 
 interface LinkItem {
   text?: string;
@@ -153,7 +153,7 @@ const {
     let scrollY = window.scrollY;
     if (
       autoHide &&
-      scrollY > 100 &&
+      scrollY > 300 &&
       !document.body.classList.contains('fixed') &&
       Math.abs(scrollY - lastScrollY) > 10
     ) {

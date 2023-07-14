@@ -1,18 +1,11 @@
 ---
 import { Icon } from 'astro-icon/components';
-// px-4 py-2
 
-const { size = 'h-7 w-7' } = Astro.props;
+const { size = 'h-6 w-6' } = Astro.props;
 ---
 
 <span
   class="inline-flex items-center self-center rounded-md p-2 font-bold tracking-tighter transition-colors hover:bg-accent hover:text-accent-foreground"
 >
   <Icon name="tabler:camera-selfie" class:list={[size, 'inline-block align-baseline']} />
-  {
-    /*
-  Abdulrahman
-  <span class="hidden md:inline-block">&nbsp;Almutairi</span>
-  */
-  }
 </span>

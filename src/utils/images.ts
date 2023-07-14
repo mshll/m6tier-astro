@@ -1,6 +1,6 @@
 import { galleryData } from '~/data';
 import { v2 as cloudinary } from 'cloudinary';
-import { extractCldImages } from '../../lib/cloudinary';
+import { extractCldImages } from '~/lib/cloudinary';
 
 cloudinary.config({
   cloud_name: import.meta.env.CLOUDINARY_NAME,

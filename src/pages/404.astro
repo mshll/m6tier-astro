@@ -3,7 +3,7 @@ import Layout from '~/layouts/PageLayout.astro';
 import { buttonVariants } from '~/components/ui/button';
 import { Link } from 'astro-link';
 import { headerData } from '~/data';
-import Header from '~/components/widgets/Header.astro';
+import Header from '~/components/Header.astro';
 
 import { getHomePermalink } from '~/utils/permalinks';
 
@@ -17,14 +17,12 @@ const title = `Error 404`;
   <section class="mx-auto flex h-full flex-col justify-center px-5 pb-20">
     <div class="mx-auto flex max-w-2xl flex-col px-10">
       <h1 class="my-4 font-serif text-7xl font-extrabold leading-none md:text-9xl">404</h1>
-      <p class="mb-10 mt-3 text-xl">Page not found.</p>
+      <p class="mb-10 mt-3 text-xl">Page not found</p>
       <Link href={getHomePermalink()} class={buttonVariants({ variant: 'outline', size: 'lg' })}>
         <strong>Home</strong>
       </Link>
     </div>
   </section>
 
-  <div class="relative" slot="bottom-grid">
-    <div class="noise-underlay bg-grid absolute -left-[50vw] bottom-0 -z-50 h-[20rem] w-[150vw]"></div>
-  </div>
+  <div slot="bottom-grid" class="noise-underlay bg-grid absolute bottom-0 -z-50 h-screen w-screen"></div>
 </Layout>
