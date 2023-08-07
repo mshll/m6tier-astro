@@ -66,8 +66,8 @@ allTags.sort();
         x-transition:leave-end="transform opacity-0 scale-95"
         class="absolute z-50 mt-1 w-full origin-top-right"
       >
-        <div class="rounded-md border border-border bg-background p-2 shadow-lg">
-          <ul class="flex flex-col text-sm">
+        <div class="rounded-md w-full border border-border bg-background p-2 shadow-lg">
+          <ul class="w-full flex flex-col text-sm text-start">
             {
               [...allTags].map((tag: string) => (
                 <li

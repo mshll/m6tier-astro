@@ -1,6 +1,5 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import { SITE } from '~/config.mjs';
 import { headerData, socialData } from '~/data';
 import Header from '~/components/Header.astro';
 import ContactForm from '~/components/ContactForm.astro';
@@ -9,8 +8,11 @@ import Socials from '~/components/Socials.astro';
 import Carousel from '~/components/Carousel.astro';
 import { getGalleryImages } from '~/utils/images';
 
-const images = await getGalleryImages();
-images?.reverse();
+let images = await getGalleryImages();
+images = images
+  ?.map((value) => ({ value, sort: Math.random() }))
+  .sort((a, b) => a.sort - b.sort)
+  .map(({ value }) => value);
 
 const title = 'Contact me';
 ---

@@ -1,16 +1,16 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import { buttonVariants } from '~/components/ui/button';
-import { Link } from 'astro-link';
 import { headerData, socialData } from '~/data';
 import Header from '~/components/Header.astro';
-import { getHomePermalink } from '~/utils/permalinks';
-import { Img } from 'astro-imagetools/components';
 import { getGalleryImages } from '~/utils/images';
 import Socials from '~/components/Socials.astro';
 import Carousel from '~/components/Carousel.astro';
 
-const images = await getGalleryImages();
+let images = await getGalleryImages();
+images = images
+  ?.map((value) => ({ value, sort: Math.random() }))
+  .sort((a, b) => a.sort - b.sort)
+  .map(({ value }) => value);
 
 const title = `Bio`;
 ---
