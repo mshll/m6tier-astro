@@ -140,19 +140,6 @@ allTags.sort();
       };
     }
 
-    function throttle(func, limit) {
-      let inThrottle;
-      return function () {
-        const args = arguments;
-        const context = this;
-        if (!inThrottle) {
-          func.apply(context, args);
-          inThrottle = true;
-          setTimeout(() => (inThrottle = false), limit);
-        }
-      };
-    }
-
     const msnry = new Masonry('#gallery-container', {
       itemSelector: '.gallery-item',
       columnWidth: '.gallery-item',
@@ -161,12 +148,12 @@ allTags.sort();
 
     imagesLoaded('#gallery-container').on(
       'progress',
-      throttle(function (instance, image) {
+      debounce(function (instance, image) {
         if (image.isLoaded) {
           image.img.parentNode.classList.add('border');
         }
         msnry.layout();
-      }, 500)
+      }, 1000)
     );
     window.addEventListener('resize', debounce(msnry.layout, 300), { passive: true });
 
