@@ -130,19 +130,45 @@ allTags.sort();
   import lgZoom from 'lightgallery/plugins/zoom';
 
   document.addEventListener('DOMContentLoaded', () => {
+    function debounce(func, wait) {
+      let timeout;
+      return function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          func.apply(this, arguments);
+        }, wait);
+      };
+    }
+
+    function throttle(func, limit) {
+      let inThrottle;
+      return function () {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+          func.apply(context, args);
+          inThrottle = true;
+          setTimeout(() => (inThrottle = false), limit);
+        }
+      };
+    }
+
     const msnry = new Masonry('#gallery-container', {
       itemSelector: '.gallery-item',
       columnWidth: '.gallery-item',
       percentPosition: true,
     });
 
-    imagesLoaded('#gallery-container').on('progress', function (instance, image) {
-      if (image.isLoaded) {
-        image.img.parentNode.classList.add('border');
-      }
-      msnry.layout();
-    });
-    window.addEventListener('resize', msnry.layout(), { passive: true });
+    imagesLoaded('#gallery-container').on(
+      'progress',
+      throttle(function (instance, image) {
+        if (image.isLoaded) {
+          image.img.parentNode.classList.add('border');
+        }
+        msnry.layout();
+      }, 500)
+    );
+    window.addEventListener('resize', debounce(msnry.layout, 300), { passive: true });
 
     const lightGalleryElement = document.getElementById('gallery-container')!;
     const lightGalleryInstance = lightGallery(lightGalleryElement, {
