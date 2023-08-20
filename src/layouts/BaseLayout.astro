@@ -4,6 +4,7 @@ import MetaTags from '~/components/common/MetaTags.astro';
 import BasicScripts from '~/components/common/BasicScripts.astro';
 import { MetaSEO } from '~/types';
 import { SITE } from '~/config.mjs';
+import { Toaster } from '@/components/ui/toaster';
 
 export interface Props {
   meta?: MetaSEO;
@@ -24,6 +25,7 @@ const { language = 'en', textDirection = 'ltr' } = SITE;
   >
     <slot />
 
+    <Toaster client:load />
     <BasicScripts />
     <style is:global>
       img {
