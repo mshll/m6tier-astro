@@ -34,9 +34,11 @@ const formSchema = z.object({
 });
 
 export default function CForm() {
+  const [clearFormTrigger, setClearFormTrigger] = useState(false);
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  function handleFormSubmit(validatedData: typeof formSchema.type) {
+
+  function handleFormSubmit(validatedData: z.infer<typeof formSchema>) {
     setIsLoading(true);
     fetch('https://send.pageclip.co/6ARcWTZzcAOyqr3nv8ormuGjblrq8Bsu/contact-form', {
       method: 'POST',
@@ -46,7 +48,7 @@ export default function CForm() {
       body: JSON.stringify(validatedData),
     })
       .then((response) => {
-        setIsLoading(false); // set to false when done
+        setIsLoading(false);
 
         if (!response.ok) {
           console.error('Error sending form data:', response);
@@ -56,6 +58,8 @@ export default function CForm() {
         toast({
           description: 'Your message has been sent successfully!',
         });
+
+        setClearFormTrigger(true);
       })
       .catch((error) => {
         setIsLoading(false); // also set to false on error
@@ -70,6 +74,7 @@ export default function CForm() {
           <AutoForm
             onSubmit={handleFormSubmit}
             className="pageclip-form pt-6"
+            clearFormTrigger={clearFormTrigger}
             formSchema={formSchema}
             fieldConfig={{
               name: {

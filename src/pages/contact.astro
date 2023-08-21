@@ -2,12 +2,11 @@
 import Layout from '~/layouts/PageLayout.astro';
 import { headerData, socialData } from '~/data';
 import Header from '~/components/Header.astro';
-import ContactForm from '~/components/ContactForm.astro';
 import Link from '~/components/Link.astro';
 import Socials from '~/components/Socials.astro';
 import Carousel from '~/components/Carousel.astro';
 import { getGalleryImages } from '~/utils/images';
-import CForm from '~/components/CForm';
+import ContactForm from '~/components/ContactForm';
 
 let images = await getGalleryImages();
 images = images
@@ -36,7 +35,7 @@ const title = 'Contact me';
       </div>
     </div>
     <div class="w-full p-4 md:w-1/2 md:px-20">
-      <CForm client:load />
+      <ContactForm client:idle />
     </div>
   </section>
 

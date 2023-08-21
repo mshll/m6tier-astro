@@ -26,6 +26,10 @@ const { meta } = Astro.props;
     <slot name="bottom-grid" />
   </main>
 
+  <div class="relative -z-40">
+    <div class="bg-gradient-to-t from-background to-transparent h-[45rem] w-full absolute bottom-0 left-0 z-0"></div>
+  </div>
+
   <slot name="footer">
     <Footer />
   </slot>

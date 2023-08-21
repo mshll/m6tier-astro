@@ -9,6 +9,7 @@ import { Link } from 'astro-link';
 import { Icon } from 'astro-icon/components';
 import { getGalleryImages } from '~/utils/images';
 import Avatar from '~/components/Avatar.astro';
+import { cn } from '~/utils/utils';
 
 const meta = {
   title: SITE.title,
@@ -27,13 +28,14 @@ const images = await getGalleryImages();
       <p class="mt-5 text-muted-foreground">Photographer & editor.</p>
       <Socials {...socialData} size="w-6 h-6" class="mt-5 space-x-2 text-muted-foreground md:space-x-4" />
     </div>
-    <div class="absolute -top-10 left-0 -z-10 min-h-screen w-screen">
+    <div class="absolute -top-10 left-0 -z-10 min-h-screen w-screen" aria-hidden="true">
       <img
         src="/images/bghero-dark.webp"
         alt=""
         class="hidden h-[70vh] w-screen select-none object-cover object-right dark:block md:h-screen"
         decoding="async"
         loading="eager"
+        aria-hidden="true"
       />
       <img
         src="/images/bghero-light.webp"
@@ -41,6 +43,7 @@ const images = await getGalleryImages();
         class="h-[70vh] w-screen select-none object-cover object-right dark:hidden md:h-screen"
         decoding="async"
         loading="eager"
+        aria-hidden="true"
       />
     </div>
   </section>
@@ -51,10 +54,10 @@ const images = await getGalleryImages();
     <div class="relative flex flex-wrap justify-center py-28">
       <Link
         href="https://www.instagram.com/m6tier/"
-        class={buttonVariants({ variant: 'outline', size: 'lg' }) + ' truncate'}
+        class={cn(buttonVariants({ variant: 'outline', size: 'lg' }), 'truncate bg-background')}
       >
         <Icon name="ri:instagram-line" class="mr-2 h-4 w-4" />
-        View more on Instagram
+         View more on Instagram
       </Link>
     </div>
   </section>

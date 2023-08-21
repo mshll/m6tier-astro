@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { z } from "zod";
 import {
   Form,
@@ -669,6 +669,7 @@ function AutoForm<SchemaType extends ZodObjectOrWrapped>({
   fieldConfig,
   children,
   className,
+  clearFormTrigger,
 }: {
   formSchema: SchemaType;
   values?: Partial<z.infer<SchemaType>>;
@@ -678,6 +679,7 @@ function AutoForm<SchemaType extends ZodObjectOrWrapped>({
   fieldConfig?: FieldConfig<z.infer<SchemaType>>;
   children?: React.ReactNode;
   className?: string;
+  clearFormTrigger?: any;
 }) {
   const objectFormSchema = getObjectFormSchema(formSchema);
   const defaultValues: DefaultValues<z.infer<typeof objectFormSchema>> =
@@ -693,9 +695,17 @@ function AutoForm<SchemaType extends ZodObjectOrWrapped>({
     const parsedValues = formSchema.safeParse(values);
     if (parsedValues.success) {
       onSubmitProp?.(parsedValues.data);
-      form.reset();
     }
   }
+
+  const clearForm = () => {
+    form.reset();
+  };
+
+  useEffect(() => {
+    clearForm();
+  }, [clearFormTrigger]);
+
 
   return (
     <Form {...form}>
